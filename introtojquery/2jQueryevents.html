@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <title>jQuery Events</title>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        var $p = $('p');
+        var output = 'Your favorite fruit is ';
+        
+        // use a click event listener to perform an action when a link is clicked
+        $('a').on('click', function(e) {         // more convenient: $('a').click(function(e) {
+          // stop the links from being followed
+          e.preventDefault();
+          // to take the text of the currently clicked anchor and display it in the paragraph
+          var $e = $(this);
+          
+          // replace paragraph text with link's text
+          $p.text(output + $e.text());
+        });
+        
+        $('form').on('submit', function(e) {     // $('form').submit(function(e) {
+          // when we submit the form, we won't reload the page
+          e.preventDefault();
+          
+          // look within the form object to find the text input that is inside the form.
+          var $input = $(this).find('input[type=text]');
+          
+          // use the input value to update the paragraph
+          $p.text(output + $input.val());
+        });
+      });
+    </script>
+    </head>
+    <body>
+      <ul>
+        <li><a href="#">Apples</a></li>
+        <li><a href="#">Bananas</a></li>
+        <li><a href="#">Oranges</a></li>
+      <form action="" method="post">
+        <fieldset>
+          <input type="text" />
+          <input type="submit" value="Choose" />
+        </fieldset>
+      </form>
+      
+      <p>Choose your favorite fruit!</p>
+    </ul>
+  </body>
+</html>

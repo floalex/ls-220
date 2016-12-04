@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <title>jQuery Events</title>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    $(function() {
+      var $p = $('p');
+      
+      // restrict the parent elements that will be selected by passing in a string selector
+      $p.parent('.highlight').css('color', 'blue');
+      
+      // This will grab the next closest ul, and not the outer most parent ul
+      $('#javascript').closest('ul').addClass('categories');
+      
+      // If we wanted to grab all parent ul elements, parents() will continue all the way out to the root element.
+      // $('#javascript').parents('ul').addClass('categories');
+      
+      // start at the outer most ul and find all of the list items
+      $('ul#navigation').find('li').length  // Should be 4
+      // collect only the immediate children lis from the navigation ul
+      $('#navigation').children().length  // Should be 1
+      
+      var $css = $('#css').closest('li');
+      // Find all list items after the CSS list item and hide them
+      $css.nextAll().hide();
+      
+      // Find all list items before the CSS list item and hide them
+      $css.prevAll().hide();
+      
+      // Find all sibling lis and show them
+      $css.siblings().show();
+    });
+    </script>
+  </head>
+  <body>
+    <blockquote>
+      <p>You have no change to survive make your time.</p>
+    </blockquote>
+    
+    <blockquote>
+      <p>Ha ha ha ha ...</p>
+    </blockquote>
+    
+    <blockquote class="highlight">
+      <p>Captain !!</p>
+    </blockquote>
+    
+    <blockquote>
+      <p>Take off every Zig!</p>
+    </blockquote>
+    
+    <ul id="navigation">
+      <li>
+        <a href="#">Categories</a>
+        <ul>
+          <li><a id="html" href="#">HTML</a></li>
+          <li><a id="css" href="#">CSS</a></li>
+          <li><a id="javascript" href="#">Javascript</a></li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>

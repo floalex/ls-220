@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>jQuery Events Exercise</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+    $(function() {
+      $('form').on('click', function(event) {
+        event.preventDefault();
+        var character = $('#key').val(),
+            charcter_code = character.charCodeAt(0);
+        
+        // unbind any previous keypress event that was bound, then bind it to the document to make sure 
+        // that we obtain the keypress event no matter where the user's focus is within the page   
+        $(document).off("keypress").on("keypress", function(event) {
+          // The which property will tell you which key was pressed by giving you a numeric keycode
+          // if the which property is different than the saved character code, stopthe event from processing further by using a return statement
+          if (event.which !== charcter_code) { return };
+          
+          // This will trigger the event that you give to it, the anchor's click event callback will run and the slideToggle will occur
+          // The trigger method can be called with any of the events, and if the event exists it will call the callback
+          $("a").trigger("click");
+        });
+      });
+      
+      $('a').on('click', function(event) {
+        event.preventDefault();
+        
+        $('#accordion').slideToggle();
+      });
+    });
+    </script>
+    <style>
+      html, body {
+        padding: 25px 0;
+        margin: 0;
+        background: #780e24;
+      }
+      
+      h1 {
+        font-size: 1.4em;
+        color: #16997c;
+      }
+      
+      main {
+        max-width: 450px;
+        padding: 20px;
+        margin: 0 auto;
+        background: #ffffff;
+        box-sizing: border-box;
+      }
+      
+      fieldset {
+        border: none;
+      }
+      
+      input[type="text"] {
+        width: 40px;
+        height: 30px;
+        font: normal 24px monospace;
+        vertical-align: top;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+      input[type="submit"] {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        background: linear-gradient(to bottom, #f0f0f0 0%, #d5d5d5 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form action="" method="post">
+        <fieldset>
+          <h1>Type a key to toggle the accordion with</h1>
+          <input type="text" id="key" name="key" maxlength="1" />
+          <input type="submit" value="Set" />
+        </fieldset>
+      </form>
+      <p><a href="#">Toggle accordion</a></p>
+      <div id="accordion">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </main>
+  </body>
+</html>
