@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>DOM Shuffiling</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/ls-220/introtojquery/10DOMShuffling/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        var $header = $("body > header");
+        var $figures = $("figure");
+        var $img = $figures.eq(0).find("img").remove();
+        
+        $header.prependTo("body");
+        $("main > h1").prependTo($header);
+        
+        $figures.appendTo("article");
+        // since we remove the baby picture and store it in the $img above, we can find the only image in $figures
+        // With .insertBefore(), on the other hand, the content precedes the method and is inserted before the target
+        // $(contentToBeInserted).insertBefore(target)
+        $figures.find("img").insertBefore($figures.eq(0).find("figcaption"));
+        // With .before(), the content to be inserted comes from the method's argument: $(target).before(contentToBeInserted)
+        $figures.eq(-1).find("figcaption").before($img);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1><a href="#">My Site!</a></h1>
+      <section id="content">
+        <article>
+          <header>
+            <h1>Welcome to my site!</h1>
+            <h2>I hope you stay a while.</h2>
+          </header>
+          <p>This is my personal slice of the Internet, where I post my ideas and projects that I've completed or am currently working on. All are patent pending.</p>
+        </article>
+        <figure>
+          <img src="/ls-220/introtojquery/10DOMShuffling/images/baby_mop.jpg" alt="The baby mop" />
+          <figcaption>The chin stick &ndash; stay upright while sleeping!</figcaption>
+        </figure>
+        <figure>
+          <img src="/ls-220/introtojquery/10DOMShuffling/images/chin_stick.jpg" alt="The chin stick" />
+          <figcaption>The baby mop &ndash; great for wet and dry mopping!</figcaption>
+        </figure>
+      </section>
+    </main>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <footer>
+      <p>&copy; 2014 me. All projects are patent pending</p>
+    </footer>
+  </body>
+</html>
