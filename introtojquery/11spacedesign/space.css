@@ -1,0 +1,293 @@
+@import url("whitespace-reset.css");
+
+body {
+  padding: 135px 0 0 0;
+  font: normal 20px "Avenir", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #45494d;
+  background: #2f2840 url("/htmlcss/spacedesign/images/bg_body.gif") 50% 0 repeat;
+}
+
+header h1 {
+  margin: 0 0 115px 0;
+}
+
+header h1 a {
+  display: inline-block;
+  width: 298px;
+  height: 243px;
+  text-indent: -9999px;
+  background: url("/htmlcss/spacedesign/images/logo.png") 0 0 no-repeat;
+}
+
+nav {
+  padding: 0 0 45px 0;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+nav li {
+  display: inline;
+  padding: 0 42px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #cacaca;
+}
+
+nav a.active {
+  color: #6db9ff;
+  font-weight: bold;
+}
+
+main {
+  padding: 100px 0 0 0;
+  background: #ffffff;
+}
+
+h2 {
+  padding: 0 0 40px 0;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+h2:before,
+h2:after {
+  display: inline-block;
+  font-size: 22px;
+  content: "\2022";
+  vertical-align: 5px;
+}
+
+h3 {
+  padding: 0 0 20px 0;
+  font-size: 24px;
+  color: #3e59b2;
+}
+
+article {
+  padding: 0 0 100px 0;
+}
+
+article p {
+  padding: 0 110px;
+}
+
+.column {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+footer {
+  padding: 80px 0;
+  color: #b2b2b2;
+  background: #e7e7e7;
+}
+
+footer p {
+  padding: 0 0 35px 0;
+}
+
+footer li {
+  display: inline-block;
+  padding: 0 62px;
+}
+
+footer li a {
+  display: block;
+  width: 46px;
+  height: 46px;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: url("/htmlcss/spacedesign/images/icons_social-media.png") 0 0 no-repeat;
+}
+
+footer li a.facebook { background-position: 0 -46px; }
+footer li a.email { background-position: 0 -92px; }
+footer li a.instagram { background-position: 0 100%; }
+
+#projects figure {
+  padding: 0 0 55px 0;
+}
+
+#projects figure img {
+  display: block;
+  width: 100%;
+}
+
+#team p {
+  padding: 0 120px 120px 120px;
+}
+
+#team ul {
+  padding: 0 0 225px 0;
+}
+
+#team li {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 24px;
+}
+
+#team li img {
+  display: block;
+  margin: 0 0 25px 0;
+}
+
+#team li a {
+  text-decoration: none;
+  color: #3e59b2;
+}
+
+.modal_layer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, .3);
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+  width: 660px;
+  padding: 125px 70px 90px 85px;
+  margin: 0 0 0 -415px;
+  text-align: left;
+  background: #ffffff;
+}
+
+.modal a.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  text-align: left;
+  text-indent: -9999px;
+  background: transparent url("/ls-220/introtojquery/11spacedesign/images/icon_close.png") 0 0 no-repeat;
+}
+
+#team .modal p {
+  padding: 0;
+  font-size: 20px;
+}
+
+#team .modal img {
+  display: inline-block;
+  width: 96px;
+  margin: 0 30px 20px 0;
+  vertical-align: middle;
+}
+
+#team .modal h3 {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+@media (max-width: 875px) {
+  #team li {
+    width: 48%;
+    padding: 0 0 30px 0;
+  }
+  
+  #team li img {
+    margin: 0 auto 25px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 65px;
+  }
+  header h1 a {
+    width: 223px;
+    height: 182px;
+    background-size: cover;
+  }
+  nav {
+    padding-bottom: 20px;
+  }
+  main {
+    padding-top: 70px;
+  }
+  article {
+    padding-bottom: 50px;
+  }
+  article p {
+    padding: 0 40px;
+    text-align: justify;
+  }
+  footer {
+    padding: 35px 0;
+  }
+  footer li {
+    padding: 0 32px;
+  }
+  .modal {
+    left: 0;
+    width: 100%;
+    padding: 50px 30px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 0;
+    font-size: 16px;
+  }
+  header {
+    padding: 20px 15px;
+  }
+  header h1 {
+    float: left;
+    margin: 20px 0 0 0;
+    font-size: 20px;
+  }
+  header h1 a {
+    width: auto;
+    height: 40px;
+    padding: 10px 0 0 55px;
+    text-indent: 0;
+    text-decoration: none;
+    color: #ffffff;
+    background-position: -20px 0;
+    background-size: 90px auto;
+  }
+  nav {
+    padding-bottom: 0;
+    text-align: right;
+  }
+  nav li {
+    display: block;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h2:before,
+  h2:after {
+    vertical-align: 0;
+  }
+  #team p {
+    padding: 0 30px 40px 30px;
+  }
+  #team ul {
+    padding-bottom: 50px;
+  }
+  footer li {
+    padding: 0 18px;
+  }
+}
