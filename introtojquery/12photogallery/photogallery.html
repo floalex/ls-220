@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Photo Gallery Slideshow</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="/ls-220/introtojquery/12photogallery/photogallery.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+    $(function() {
+      var $slideshow = $("#slideshow"),
+          $nav = $slideshow.find("ul");
+          
+      // one navigation event that contains 4 "a"
+      $nav.on("click", "a", function(e) {
+        e.preventDefault();
+        // get the list item from the current event object
+        var $li = $(e.currentTarget).closest("li"),
+            idx = $li.index();
+      
+      // without animation
+      // $slideshow.find("figure").filter(":visible").hide().end().eq(idx).show();
+      
+      // with animation
+      $slideshow.find("figure").filter(":visible").stop().fadeOut(300);   // stop prevents double clicking 
+      // locate the target item
+      $slideshow.find("figure").eq(idx).delay(300).fadeIn(300);
+      $nav.find(".active").removeClass();
+      $li.addClass("active");
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>My Photo Gallery</h1>
+      <div id="slideshow">
+        <figure>
+          <img src="http://placehold.it/1200x900" alt="Example photo" />
+          <figcaption>Example photo</figcaption>
+        </figure>
+        <figure>
+          <img src="http://placehold.it/1200x900/fff/333" alt="Example photo" />
+          <figcaption>Example photo</figcaption>
+        </figure>
+        <figure>
+          <img src="http://placehold.it/1200x900/66cc33/f0f0f0" alt="Example photo" />
+          <figcaption>Example photo</figcaption>
+        </figure>
+        <figure>
+          <img src="http://placehold.it/1200x900/993535/aaa" alt="Example photo" />
+          <figcaption>Example photo</figcaption>
+        </figure>
+        <ul>
+          <li class="active"><a href="#"><img src="http://placehold.it/1200x900" alt="" title="Photo 1" /></a></li>
+          <li><a href="#"><img src="http://placehold.it/1200x900/fff/333" alt="" title="Photo 2" /></a></li>
+          <li><a href="#"><img src="http://placehold.it/1200x900/66cc33/f0f0f0" alt="" title="Photo 3" /></a></li>
+          <li><a href="#"><img src="http://placehold.it/1200x900/993535/aaa" alt="" title="Photo 4" /></a></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
