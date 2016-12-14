@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>jQuery Event Delegation</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+      $(function() {
+        // This callback is bound to each anchor, making 30 event handlers in memory
+        // $('a').on('click', function(e) {
+        //   e.preventDefault();
+        //   $(this).closest('li').remove();
+        // });
+        
+        // This callback is bound to a single element, yet it is able to process click events on any of the remove anchors within it.
+        $('ul').on('click', 'a', function(e) {
+          e.preventDefault();
+          $(e.target).closest('li').remove();
+        });
+      }); 
+    </script>
+    
+  </head>
+  <body>
+    <main>
+      <ul>
+        <li>
+          <p>Bananas</p>
+          <a href="#">Remove</a>
+        </li>
+        <li>
+          <p>Apples</p>
+          <a href="#">Remove</a>
+        </li>
+        <!-- 29 more list items, each with a remove anchor -->
+      </ul>
+    </main>
+  </body>
+</html>

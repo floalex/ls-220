@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Intermediate jQuery</title>
+    <meta charset="UTF-8" />
+    <!--<link rel="stylesheet" href="stylesheets/examples.css" />-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+      $(function() {
+        function highlight(e) {
+          $(this).toggleClass("highlight");
+        }
+      
+        function displayParentChildRelationship(e) {
+          // current DOM element
+          $(e.currentTarget).addClass("child");
+          // bound element
+          $(e.delegateTarget).addClass("parent");
+        }
+      
+        // Basic event binding
+        var $simple = $(".simple");
+      
+        $simple.on("click", highlight);
+      
+        // this link will not have any effect since we call the highlight function before cloning it
+        $simple.filter(".clone").clone().appendTo($("#clone"));
+      
+        // Delegated event binding
+        var $delegated = $("#delegated");
+      
+        $delegated.on("click", "a", highlight);
+      
+        $delegated.find("a").clone().appendTo($("#delegate_clone"));
+      
+        // Passing false as callback to cancel event
+        $(document).on("click", "a", false);
+      
+        // Namespacing events
+        $("#namespaced").on("click.alert", function(e) {
+          alert("Now removing only the alert event");
+          $(this).off("click.alert");
+        });
+      
+        // Multiple events bound with options object
+        $("#text").on({
+          // set the object property name to the event
+          focus: function() { $(this).addClass("focused"); },
+          keyup: function(e) {
+            $("#which b").text(e.which);
+            $(this).val("");
+          },
+          blur: function() { $(this).removeClass("focused"); }
+        });
+      
+        // Create a new event object and use it to trigger an event with properties pre-set
+        $("#trigger_k").on("click", function(e) {
+          e.preventDefault();
+      
+          var keyup_event = $.Event({
+            type: "keyup"
+          });
+      
+          keyup_event.which = 75;
+      
+          $("#text").trigger(keyup_event);
+        });
+      
+        // Use which within a mouse event to determine which mouse button pressed
+        $("#check_mouse_button").on("mousedown", function(e) {
+          e.preventDefault();
+          $(this).find("b").text(e.which);
+        });
+      
+        // currentTarget and delegateTarget DOM elements
+        $("#parent").on("click", "p", displayParentChildRelationship.bind(window));
+      
+        // Position and offset
+        $("#pinboard p").on("click", function() {
+          var $p = $(this),
+              position = $p.position(),
+              offset = $p.offset();
+      
+          $("#position").html("Left: " + position.left + "<br />Top: " + position.top);
+          $("#offset").html("Left: " + offset.left + "<br />Top: " + offset.top);
+        });
+      });
+    </script>
+    <style>
+      html, body {
+        background: #58788C;
+      }
+      
+      main {
+        width: 600px;
+        padding: 25px;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+      
+      .highlight {
+        color: #999933;
+        background: #ffff99;
+      }
+      
+      input {
+        border: 1px solid #cecece;
+      }
+      
+      .focused {
+        box-shadow: 0 0 5px #ff0000;
+        outline: none;
+      }
+      
+      #check_mouse_button {
+        padding: 10px;
+        color: #b00b00;
+        background: #faafaa;
+      }
+      
+      .parent {
+        background: #aaffaa;
+      }
+      .child {
+        outline: 1px solid #0000aa;
+      }
+      
+      #pinboard {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        background: #cacaca;
+        border: 2px solid #666666;
+      }
+      #pinboard p {
+        position: absolute;
+        top: 120px;
+        left: 260px;
+        padding: 10px;
+        margin-left: 40px;
+        border: 2px solid #0066cc;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Events</h1>
+      <h2>Click</h2>
+      <p><a class="simple clone" href="#">A simple click event</a></p>
+      <p id="clone"></p>
+
+      <div id="delegated">
+        <p><a href="#">A delegated click event</a></p>
+        <p id="delegate_clone"></p>
+      </div>
+
+      <p><a class="simple" id="namespaced" href="#">A link with multiple click events</a></p>
+
+      <h2>Event Object</h2>
+      <input id="text" type="text" />
+      <p id="which">Key pressed: <b></b></p>
+      <p><a id="trigger_k" href="#">Trigger "k" keyup</a></p>
+
+      <div id="check_mouse_button">Mouse button used: <b></b></div>
+
+      <div id="parent">
+        <h3>currentTarget and delegateTarget</h3>
+        <p>I'm currentTarget. The div#parent is the delegateTarget.</p>
+      </div>
+
+      <div id="index">
+        <p>Index 0</p>
+        <p>Index 1</p>
+        <article>Index 2</article>
+        <p>Index 3</p>
+      </div>
+
+      <h1>Dimensions</h1>
+      <div id="pinboard">
+        <p>Click me!</p>
+      </div>
+      <dl>
+        <dt>Position:</dt>
+        <dd id="position"></dd>
+        <dt>Offset:</dt>
+        <dd id="offset"></dd>
+      </dl>
+    </main>
+  </body>
+</html>
