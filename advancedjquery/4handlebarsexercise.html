@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Handlebars Exercises</title>
+    <meta charset="UTF-8" />
+    <!--<link rel="stylesheet" href="stylesheets/examples.css" />-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+    <script>
+      $(function() {
+        // 1. Locate the template by ID and compile it to a template function. Render the post to the body element using the function.
+        // Using jQuery
+        // var postTemplate = Handlebars.compile($('#post').html());
+        
+        // Using JavaScript
+        // var postTemplate = Handlebars.compile(document.getElementById('post').innerHTML);
+        var post = {
+          title: 'Lorem ipsum dolor sit amet',
+          published: 'April 1, 2015',
+          body: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+        };
+        
+        // 2. Change your post object's body property to contain HTML elements as part of the string. 
+        // Modify your Handlebars template to allow HTML to be output unescaped.
+        post.body = '<p>' + post.body + '</p>';  // in HTML {{{body}}}
+        
+        // 3. Add a property called tags on the post object that will be an array of strings to represent tags added to the blog post. Using 
+        // the Handlebars each loop and dot notation to output all tags for the post.
+        post.tags = ['Food', 'Cooking', 'Vegetables'];
+        
+        // 4
+        Handlebars.registerPartial('tag', $('#tag').html());
+        
+        // $('body').append(postTemplate(post));
+        
+        // 5 Create a posts array, adding the existing post to it. Add a second post with no tags property. 
+        // Modify your template to check for the existence of tags, and if none exist, output a "Not tagged" message. 
+        // Wrap the template in an each loop to output each post.
+        var posts = [{
+          title: 'voluptate velit',
+          published: 'April 2, 2015',
+          body: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
+        }];
+        posts.push(post);
+        
+        var postsTemplate = Handlebars.compile(document.getElementById('posts').innerHTML);
+        
+        $('body').append(postsTemplate({ posts: posts }));
+      });
+    </script>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <!--<script id="post" type="text/x-handlebars">-->
+    <!--  <article>-->
+    <!--    <h1>{{title}}</h1>-->
+    <!--    <p><time>Posted on {{published}}</time></p>-->
+    <!--    {{{body}}}-->
+        <!-- 3 --> 
+    <!--    <footer>-->
+    <!--      <p>-->
+    <!--        Tags:-->
+    <!--        {{#each tags}}-->
+            <!-- Also can use this to reference the element being iterated over -->
+    <!--        <strong>{{.}}</strong>  -->
+    <!--        {{/each}}-->
+    <!--      </p>-->
+    <!--    </footer>-->
+    <!--  </article>-->
+    <!--</script>-->
+    
+    <!--4. Create a separate template for the HTML element used to wrap each tag. Using the handlebars partial method, register the -->
+    <!--template as a partial using the name "tag" and replace the HTML for tags in the main template with a reference to the partial.-->
+    <script id="tag" type="text/x-handlebars">
+      <strong>{{.}}</strong>
+    </script>
+    
+    <!--<script id="post" type="text/x-handlebars">-->
+    <!--  <article>-->
+    <!--    <h1>{{title}}</h1>-->
+    <!--    <p><time>Posted on {{published}}</time></p>-->
+    <!--    {{{body}}}-->
+    <!--    <footer>-->
+    <!--      <p>-->
+    <!--        Tags:-->
+    <!--        {{#each tags}}-->
+    <!--        {{>tag}}-->
+    <!--        {{/each}}-->
+    <!--      </p>-->
+    <!--    </footer>-->
+    <!--  </article>-->
+    <!--</script>-->
+    
+    <!-- 5 -->
+    <script id="posts" type="text/x-handlebars">
+      {{#each posts}}
+        <article>
+        <h1>{{title}}</h1>
+        <p><time>Posted on {{published}}</time></p>
+        {{{body}}}
+        <footer>
+          <p>
+            {{#if tags}}
+            Tags:
+            {{#each tags}}
+            {{>tag}}
+            {{/each}}
+            {{else}}
+            Not tagged
+            {{/if}}
+          </p>
+        </footer>
+      </article>
+      {{/each}}
+    </script>
+  </body>
+</html>
