@@ -42,7 +42,9 @@ $(function() {
       this.renderPhotoContent($next.attr("data-id"));
     },
     renderPhotoContent: function(idx) {
-      renderPhotoInformation(idx);
+      // assign the appropriate comment to the slide
+      $("[name=photo_id]").val(idx);
+      renderPhotoInformation(+idx);
       getCommentsFor(idx);
     },
     bind: function() {
@@ -68,6 +70,37 @@ $(function() {
       // request the comments data for the first photo and render it on page load
       getCommentsFor(photos[0].id);
     }
+  });
+  
+  // ajax request under section > header in html page
+  $("section > header").on("click", ".actions a", function(e) {
+    e.preventDefault();
+    var $e = $(e.target);
+    
+    $.ajax({
+      url: $e.attr("href"),
+      type: "post",
+      data: "photo_id=" + $e.attr("data-id"),
+      success: function(json) {
+        $e.text(function(idx, txt) {
+          return txt.replace(/\d+/, json.total);
+        });
+      }
+    });
+  });
+  
+  $("form").on("submit", function(e) {
+    e.preventDefault();
+    var $f = $(this);
+    
+    $.ajax({
+      url: $f.attr("action"),
+      type: $f.attr("method"),
+      data: $f.serialize(),
+      success: function(json) {
+        $("#comments ul").append(templates.comment(json));
+      }
+    });
   });
   
   function renderPhotos() {
