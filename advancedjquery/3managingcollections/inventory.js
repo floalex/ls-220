@@ -84,6 +84,7 @@ var inventory;
     },
     bindEvents: function() {
       // When the "ADD ITEM" button is created
+      // using proxy to make sure the context of the function newItem is within(bound) to the inventory object, not the DOM element
       $("#add_item").on("click", $.proxy(this.newItem, this));
       // need to delegate the delete event since the delete link doesn't exist when we load the page; can't bind it directly on the element itself
       // tell jqeury to listen to the click event in the table, run the call back once the click matches the a with class "delete"
