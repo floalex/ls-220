@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <title>Storing and Retrieving State with localStorage</title>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $("nav a").on("click", function(e) {
+          e.preventDefault();
+          var $e = $(this),
+              class_name = "active",
+              idx = $e.closest("li").index();
+              
+          $e.closest("nav").find("." + class_name).removeClass(class_name);
+          $e.addClass(class_name);
+          // hide all the articles then filter down to the list index and show the clicked one
+          $("#tabs article").hide().eq(idx).show();
+          localStorage.setItem("active_nav", idx);
+        });
+        
+        $(":radio").on("change", function() {
+          var color = $(this).val();
+          
+          $(document.body).css({ background: color });
+          localStorage.setItem("background", color);
+        });
+        
+        // The window unload event is fired when the current window changes its location or is closed
+        $(window).unload(function() {
+          localStorage.setItem("note", $("textarea").val());
+        });
+        
+        setActiveNav(localStorage.getItem("active_nav"));  
+        setBackground(localStorage.getItem("background"));
+        setNotes(localStorage.getItem("note"));
+      });
+      
+      function setActiveNav(idx) {
+        if (idx === null) { return; }
+        $("nav a").eq(idx).click();
+      }
+      
+      function setBackground(color) {
+        if (color === null) { return; }
+        $("input[value='" + color + "']").prop("checked", true).change();
+      }
+      
+      function setNotes(comment) {
+        $("textarea").val(comment);
+      }
+    </script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      
+      main {
+        width: 800px;
+        padding: 30px;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+      
+      nav ul {
+        padding: 0;
+        list-style: none;
+      }
+      
+      nav li {
+        display: inline;
+        padding: 0 3px 0 0;
+      }
+      
+      nav a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 8px 15px;
+        background: #efef8b;
+        color: #333333;
+        border-top-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        box-shadow: -1px 0 3px rgba(0, 0, 0, .3);
+      }
+      
+      nav a.active {
+        background: #aee7ae;
+        color: #b00b00;
+      }
+      
+      #tabs article + article { display: none; }
+      
+      fieldset {
+        padding: 0;
+        border: none;
+      }
+    </style>
+    </head>
+    <body>
+      <main>
+        <nav>
+          <ul>
+            <li><a class="active" href="#">Tab 1</a></li>
+            <li><a href="#">Tab 2</a></li>
+            <li><a href="#">Tab 3</a></li>
+          </ul>
+        </nav>
+        
+        <section id="tabs">
+          <article>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut orci nisi, pellentesque quis ante id, finibus tempus velit. Nam eget libero mi. Maecenas a turpis nec dui venenatis faucibus. Sed ac malesuada orci, posuere rutrum sem. Aliquam urna leo, ultricies at nisi vel, pretium cursus lectus. Proin ut pharetra elit. Nulla volutpat urna nec nisl consectetur elementum. Aliquam blandit dapibus elit quis scelerisque. Nam eu molestie risus, eu posuere massa. Donec felis magna, sagittis sed nisl ut, auctor mattis elit. Duis eget porta ex, sed feugiat neque. Sed viverra tellus ex, malesuada dapibus libero aliquet eget. Proin id sapien eget odio tristique dignissim. Donec convallis nunc at placerat auctor.
+            </p>
+          </article>
+  
+          <article>
+            <p>
+              Vivamus sed turpis gravida, sodales quam eget, commodo sem. Pellentesque mauris arcu, luctus sed tempor hendrerit, placerat vel velit. Praesent vestibulum, libero imperdiet accumsan gravida, ligula risus tincidunt nisi, in volutpat lorem orci sed ligula. Nunc sollicitudin nisl ac tellus tristique, sit amet rhoncus enim faucibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam quis tincidunt lectus, viverra rhoncus mauris. Proin quis libero tempor, tristique est eget, congue lorem. Nulla et tortor vel velit ullamcorper convallis non ut urna. Nulla feugiat dictum vehicula. Suspendisse egestas sed ante cursus laoreet. Duis pulvinar nec massa a accumsan. Duis sagittis ultrices est. Vestibulum pellentesque cursus tellus, id tempus nibh vulputate non. Aliquam sodales nec leo non tincidunt. Mauris eget est mi.
+            </p>
+          </article>
+          
+          <article>
+            <p>
+              Duis commodo orci consequat urna dignissim, id facilisis ante pharetra. Nunc vitae eros pellentesque, tempus dui vel, rutrum arcu. Curabitur dignissim felis vitae nisi volutpat, ac porttitor orci sodales. Ut in leo sed mi rutrum cursus. Cras quis erat in magna venenatis mollis ut congue nunc. Nullam finibus placerat tellus et condimentum. Nulla facilisi. Maecenas vulputate et felis id hendrerit.
+            </p>
+          </article>
+          
+          <form action="" method="get">
+            <fieldset>
+              <h2>Change background color to:</h2>
+              <ul>
+                <li><label><input type="radio" name="background" value="#ff0000" />Red</label></li>
+                <li><label><input type="radio" name="background" value="#00ff00" />Green</label></li>
+                <li><label><input type="radio" name="background" value="#0000ff" />Blue</label></li>
+                <li><label><input type="radio" name="background" value="#ffff00" />Yellow</label></li>
+                <li><label><input type="radio" name="background" value="#ff00ff" />Pink</label></li>
+              </ul>
+              
+              <h2>Leave some notes here:</h2>
+              <textarea name="note" rows="8" cols="80"></textarea>
+            </fieldset>
+          </form>
+        </section>
+      </main>
+  </body>
+</html>
