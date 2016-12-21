@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <title>Canvas Drawing Project</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/ls-220/HTML5API/3canvasproject/canvas.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/ls-220/HTML5API/3canvasproject/canvasproject.js" /></script>
+  </head>
+  <body>
+    <!--start with the canvas element-->
+    <canvas width="800" height="500"></canvas>
+    
+    <!--add the list of drawing buttons-->
+    <ul>
+      <li><a class="drawing_method" data-method="circle" href="#">Circle</a></li>
+      <li><a class="drawing_method" data-method="square" href="#">Square</a></li>
+      <li><a class="drawing_method" data-method="triangle" href="#">Triangle</a></li>
+      <li><a id="clear" href="#">Clear canvas</a></li>
+      <li>
+        <form action="" method="get">
+          <fieldset>
+            <label>Color: <input type="text" /></label>
+          </fieldset>
+        </form>
+      </li>
+    </ul>
+  </body>
+</html>

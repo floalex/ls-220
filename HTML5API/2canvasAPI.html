@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+  <title>Canvas HTML5</title>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        var canvas = document.querySelector('canvas');
+        var ctx = canvas.getContext('2d');
+        // fillRect, will take the entire area and fill it in with the current fill style on the context. The default fill style is a solid black color
+        // The first two arguments are the starting x and y coordinates for the rectangle. The third and fourth arguments to these methods are the width and height of the rectangle. 
+        // ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        //create an array of colors that we can set the fillStyle to before drawing the rectangles
+        var colors = ['#000', '#003', '#006', '#009', '#00c', '#00f'];
+        
+        //We'll iterate over the array of colors, setting the fillStyle for each one. With our loop index, we'll set the edges 
+        // of the rectangle in by 20 pixels with each iteration so our current rectangle overlaps the previous one but leaves 
+        // 20 pixels of it visible as a sort of border
+        // function draw() {
+        //   colors.forEach(function(color, i) {
+        //     // set the fillStyle to the color that is passed in as argument 1
+        //     ctx.fillStyle = color;
+        //     // use the iteration count passed in as argument 2 to set the rectangle in 20 pixels more than the last iteration
+        //     ctx.fillRect(i * 20, i * 20, canvas.width - i * 40, canvas.height - i * 40);
+        //   });
+          
+        //   //  animate cycling through the colors
+        //   colors.unshift(colors.pop());
+        // }
+        
+        // Notice that we're passing the function draw by reference, and not calling it. The setInterval function will handle 
+        // calling the function once the time is up.
+        // setInterval(draw, 200);
+        
+        // draw a circle
+        var x = canvas.width / 2;
+        var y = canvas.height / 2;
+        // touch all 4 sides of the canvas
+        var radius = x;
+        
+        ctx.beginPath();
+        // start at angle 0, then draw to 2 * Math.PI, a radian measurement that equals 360 degrees, or a full circle
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.closePath();
+        
+        // draw a triangle
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(0, 102, 204, .7)';
+        ctx.moveTo(x, y - 50);
+        ctx.lineTo(x + 50, y);
+        ctx.lineTo(x - 50, y);
+        ctx.lineTo(x, y - 50);
+        ctx.stroke();
+        ctx.closePath();
+        
+        // var img = document.querySelector('img');
+        
+        // // We'll change the canvas width and height to match the image width and height
+        // canvas.width = img.width;
+        // canvas.height = img.height;
+        
+        // ctx.drawImage(img, 0, 0);
+        
+        var imageData = {
+          width: 2,
+          height: 2,
+          data: [
+            255, 0, 0, 255,
+            255, 0, 0, 255,
+            0, 0, 255, 255,
+            0, 0, 255, 255
+          ],
+        }
+
+      });
+    </script>
+    <style>
+     
+    </style>
+    </head>
+    <body>
+      <canvas width="800" height="600"></canvas>
+      
+      <img src="https://www.google.com/images/srpr/logo11w.png" />
+  </body>
+</html>
