@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Prototypes and Prototypal Inheritance Exercises</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+      // 1. Write a function that returns the object on a given object's prototype chain where a property is defined       
+      // function getDefiningObject(object, propKey) {
+      //   // traverse up the prototype chain of the object and for each object, see if the property is defined with the hasOwnProperty method
+      //   while (object && !object.hasOwnProperty(propKey)) {
+      //     // if you can't find the property there and keep using Object.getPrototypeOf to get its prototype, you'll get null
+      //     object = Object.getPrototypeOf(object);
+      //   }
+        
+      //   return object;
+      // }
+      
+      // var foo = {
+      //   a: 1,
+      //   b: 2,
+      // };
+      
+      // var bar = Object.create(foo);
+      // var baz = Object.create(bar);
+      // var qux = Object.create(baz);
+      
+      // bar.c = 3;
+      
+      // console.log(getDefiningObject(qux, 'c') === bar);     // true
+      // console.log(getDefiningObject(qux, 'e'));             // null
+      
+      // 2 Write a function to provide a shallow copy of an object. The copied object should share the same prototype chain as the original 
+      // object, and it has the same own properties that return the same values or objects when accessed.
+      
+      // function shallowCopy(object) {
+      //   var new_object = Object.create(Object.getPrototypeOf(object));
+      //   for (var prop in object) {
+      //     // avoide the error if the object could have a property with the name of hasOwnProperty
+      //     if (Object.prototype.hasOwnProperty.call(object, prop)) {
+      //       new_object[prop] = object[prop];
+      //     }
+      //   }
+        
+      //   return new_object;
+      // }
+      
+      var foo = {
+        a: 1,
+        b: 2,
+      };
+      
+      var bar = Object.create(foo);
+      bar.c = 3;
+      bar.say = function() {
+        console.log("c is " + this.c);
+      };
+      
+      var baz = shallowCopy(bar);
+      console.log(baz.a);       // 1
+      baz.say();                // c is 3
+      
+      // 3 Write a function that extends an object (destination object) with contents from multiple objects (source objects)
+      
+      // In the case of the extend function, it is declared to formally accept only a destination argument
+      // Mapping this to the function call of var object = extend({}, foo, joe, funcs); would lead to having the destination 
+      // argument have a value of {}
+      function extend(destination) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var prop in source) {
+            destination[prop] = source[prop];
+          }
+        }
+        
+        return destination;
+      }
+      
+      var foo = {
+        a: 0,
+        b: {
+          x: 1,
+          y: 2,
+        },
+      };
+      
+      var joe = {
+        name: 'Joe',
+      };
+      
+      var funcs = {
+        sayHello: function() {
+          console.log('Hello, ' + this.name);
+        },
+      
+        sayGoodBye: function() {
+          console.log('Goodbye, ' + this.name);
+        },
+      };
+      
+      var object = extend({}, foo, joe, funcs);
+      
+      console.log(object.b.x);          // 1
+      console.log(object.sayHello());   // Hello, Joe
+      
+      // he extend function is JavaScript's way for the "Mixin" pattern. For example in this case, 
+      // our funcs object is a bag of functions / methods that can be mixed into objects with the extend function. 
+      
+      // Also, we can implement the shallowCopy function with extend(), if we don't care about preserving the prototype chain:
+
+      function shallowCopy(object) {
+        return extend({}, object);
+      }
+    </script>
+    
+  </head>
+  <body>
+    
+</html>

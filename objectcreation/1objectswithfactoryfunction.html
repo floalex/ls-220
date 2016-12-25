@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Create Objects with Factory Functions Exercises</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+      // Step 1. Build a Factory Function for Invoices     
+      // function createInvoice(services) {
+      //   services = services || {};
+      //   return {
+      //     // set the price to 0 if the price is indeed 0, see below alternative for the || operator
+      //     phone: (services.phone >= 0) ? services.phone : 3000,
+      //     internet: (services.internet >= 0) ? services.internet : 5500,
+      //     total: function() {
+      //       return this.phone + this.internet;
+      //     },
+      //   };
+      // }
+      
+      // alternative
+      // function createInvoice(services) {
+      //   services = services || {};
+      //   var invoice = {
+      //     // the price will be 3000 or 5500 if set 0 in this case
+      //     phone: services.phone || 3000,
+      //     internet: services.internet || 5500,
+      //   };
+      
+      //   invoice.total = function() {
+      //     return invoice.phone + invoice.internet;
+      //   };
+      
+      //   return invoice;
+      // }
+     
+      // function invoiceTotal(invoices) {
+      //   var total = 0;
+      //   for (var i = 0; i < invoices.length; i++) {
+      //     total += invoices[i].total();
+      //   }
+      
+      //   return total;
+      // }
+      
+      // var invoices = [];
+      // invoices.push(createInvoice());
+      // invoices.push(createInvoice({
+      // internet: 6500
+      // }));
+      
+      // invoices.push(createInvoice({
+      // phone: 2000
+      // }));
+      
+      // invoices.push(createInvoice({
+      //   phone: 1000,
+      //   internet: 4500,
+      // }));
+      
+      // invoices.push(createInvoice({
+      //   phone: 0,
+      //   internet: 0,
+      // }));
+      
+      // console.log(invoiceTotal(invoices));             // 31000
+      
+      // Step 2. Build a Factory Function for Payments      
+      function createPayment(services) {
+        services = services || {};
+        return {
+          phone: services.phone || 0,
+          internet: services.internet || 0,
+          amount: services.amount,   // return not defined if there is no amount passed in
+          payTotal: function() {
+            return this.amount || (this.phone + this.internet);
+          },
+        };
+      }
+      
+      function paymentTotal(payments) {
+        var total = 0;
+        for (var i = 0; i < payments.length; i++) {
+          total += payments[i].payTotal();
+        }
+      
+        return total;
+      }
+      
+      var payments = [];
+      payments.push(createPayment());
+      payments.push(createPayment({
+        internet: 6500
+      }));
+      
+      payments.push(createPayment({
+        phone: 2000
+      }));
+      
+      payments.push(createPayment({
+        phone: 1000, internet: 4500
+      }));
+      
+      payments.push(createPayment({
+        amount: 10000
+      }));
+      
+      console.log(paymentTotal(payments));      // 24000
+      
+      // Step 3. Allow Invoices to Take Payments
+      // Update the previous createInvoice function to make it possible to add payment(s) to invoices
+      function createInvoice(services) {
+        services = services || {};
+        return {
+          // set the price to 0 if the price is indeed 0, see below alternative for the || operator
+          phone: (services.phone >= 0) ? services.phone : 3000,
+          internet: (services.internet >= 0) ? services.internet : 5500,
+          payments: [],
+          
+          invTotal: function() {
+            return this.phone + this.internet;
+          },
+          
+          addPayment: function(payment) {
+            this.payments.push(payment);
+          },
+          addPayments: function(payments) {
+            for (var i = 0; i < payments.length; i++) {
+              this.addPayment(payments[i]);
+            }
+          },
+          
+          paymentsTotal: function() {
+            var paymentsTotal = 0;
+            for (var j = 0; j < this.payments.length; j++) {
+              paymentsTotal += this.payments[j].payTotal();
+            }
+            return paymentsTotal;
+          },
+          amountDue: function() {
+            return this.invTotal() - this.paymentsTotal();
+          },
+        };
+      }
+      
+      var invoice = createInvoice({
+        phone: 1200,
+        internet: 4000,
+      });
+      
+      var payment1 = createPayment({
+        amount: 2000,
+      });
+      
+      var payment2 = createPayment({
+        phone: 1000,
+        internet: 1200
+      });
+      
+      var payment3 = createPayment({
+        phone: 1000
+      });
+      
+      invoice.addPayment(payment1);
+      invoice.addPayments([payment2, payment3]);
+      console.log(invoice.amountDue());       // this should return 0
+    </script>
+    
+  </head>
+  <body>
+    
+</html>
