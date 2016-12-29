@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>More Methods on the Object Constructor</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+      // 1. using the defineProperties method on Object we can provide properties and values and set whether each property can be changed or not      
+      // Using this method, create a function that constructs a new object with a log method that is read-only. The log method will use 
+      // console.log to output the name property on itself.
+      function newPerson(name) {
+        return Object.defineProperties( {name: name}, {
+          log: {
+            value: function() {
+              console.log(this.name);
+            },
+            writable: false,
+          },
+        });
+      }
+      
+      var me = newPerson('Shane Riley');
+      me.log();     // Shane Riley
+      me.log = function() { console.log("Amanda Rose"); };
+      me.log();     // Shane Riley
+      
+      // 2. If we wanted to have an object with properties that are all immutable, or not able to be changed, we can use the Object.freeze
+      // method to prevent anything from being changed about an object. This prevents any property values that are not objects from being 
+      // changed or deleted.
+      
+      var frozen = {
+        integer: 4,
+        string: 'String',
+        array: [1, 2, 3],
+        object: {
+          foo: 'bar'
+        },
+        func: function() {
+          console.log('I\'m frozen');
+        },
+      };
+      
+      Object.freeze(frozen);
+      frozen.integer = 8;
+      frozen.string = 'Number';
+      frozen.array.pop();
+      frozen.object.foo = 'baz';
+      frozen.func = function() {
+        console.log('I\'m not really frozen');
+      };
+      
+      console.log(frozen.integer);      // 4
+      console.log(frozen.string);       // String
+      console.log(frozen.array);        // [1, 2]
+      console.log(frozen.object.foo);   // baz
+      frozen.func();                    // I'm frozen
+      
+      // For property values that are objects, the references to the objects are frozen, so you can't point to other objects, but you can still 
+      // use the frozen references to mutate the objects.
+      // Keep in mind that if you freeze an object, it can not be unfrozen.
+    </script>
+    
+  </head>
+  <body>
+    
+</html>
