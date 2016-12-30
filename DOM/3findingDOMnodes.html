@@ -1,0 +1,118 @@
+<!--1 Write a JavaScript Function that returns the DOM elements that represent the paragraph tags in the following HTML:-->
+<!--<html>-->
+<!--  <h1>On The River</h1>-->
+<!--  <p>The sun is low</p>-->
+<!--  <p>The waters flow</p>-->
+<!--  <script>-->
+<!--    function findAllParagraphs() {-->
+<!--      var paragraphArr = [];-->
+      
+<!--      document.body.childNodes.forEach(function(node) {-->
+<!--        if (node instanceof HTMLParagraphElement) {-->
+<!--          paragraphArr.push(node);-->
+<!--        }-->
+<!--      });-->
+      
+<!--      return paragraphArr;-->
+<!--    }-->
+    
+    <!--console.log(findAllParagraphs().length);  //2-->
+<!--  </script>-->
+<!--</html>-->
+
+<!--2 Given the following HTML, write a JavaScript Function that adds the CSS class "article-text" to every paragraph element:-->
+<html>
+  <style>
+    .article-text {
+      color: red;
+    }
+  </style>
+  <div id="page1">
+    <div class="intro">
+      <p>The sun is low,</p>
+    </div>
+    <p>The waters flow,</p>
+  </div>
+  <div id="page2">
+    <div class="intro">
+      <p>My boat is dancing to and fro.</p>
+    </div>
+    <p>The eve is still,</p>
+  </div>
+  <div id="page3">
+    <div class="intro">
+      <p>Yet from the hill</p>
+    </div>
+    <p>The killdeer echoes loud and shrill.</p>
+  </div>
+  <script>
+    // Finding Multiple Elements 2
+    // function addClassToParagraphs(node) {
+    //   if (node instanceof HTMLParagraphElement) {
+    //     node.classList.add("article-text");
+    //   }
+    //   node.childNodes.forEach(function(child) {
+    //     addClassToParagraphs(child);
+    //   });
+    // }
+    
+    // addClassToParagraphs(document.body);
+    
+    // Finding Multiple Elements 3
+    // The solution above does everything in one Function. This works, but it means that if we needed to perform a similar operation 
+    // again, we'd have to write most of the same code again. Another way to think about the problem is to divide it into two parts: 
+    // finding all of the paragraphs, and then adding a class to all of the found elements.
+    
+    // Rewrite the solution to the first exercise. This time, define a Function getElementsByTag that returns an Array of all of the 
+    // Elements that have a specified tag. Then, use that method to find all of the pargraphs on the page and then add the CSS class 
+    // article-text to each one. Use the definition of walk that we looked at previously.
+    
+    // function walk(node, callback) {
+    //   callback(node);
+    //   node.childNodes.forEach(function(child) {
+    //     walk(child, callback);
+    //   });
+    // }
+    
+    // function getElementsByTag(tagName) {
+    //   var matches = [];
+      
+    //   walk(document.body, function(node) {
+    //     if (node.nodeName.toLowerCase() === tagName) {
+    //       matches.push(node)
+    //     }
+    //   });
+      
+    //   return matches;
+    // }
+    
+    // getElementsByTag("p").forEach(function(p) {
+    //   p.classList.add("article-text");
+    // });
+    
+    // Built In Functions 1 Update the code written we wrote above to use the built-in getElementsByTagName method on document
+    // var paragraphs = document.getElementsByTagName("p");
+    // for (var i = 0; i < paragraphs.length; i++) {
+    //   paragraphs[i].classList.add("article-text");
+    
+    // Built In Functions 2 Update the code written we wrote above to take into account the new requirement that the article-text 
+    // class is only added to paragraphs within <div class="intro">.
+    // Keep in mind that getElementsByClassName and getElementsByTagName can be called on any Element in addition to on document.
+    // var intros = document.getElementsByClassName("intro");
+    // for (var i = 0; i < intros.length; i++) {
+    //   var paragraphs = intros[i].getElementsByTagName("p");
+    //   for (var p = 0; p < paragraphs.length; p++) {
+    //     paragraphs[p].classList.add("article-text");
+    //   }
+    // }
+    
+    // Using CSS Selectors    
+    // using querySelectorAll
+    var paragraphs = document.querySelectorAll(".intro p");
+    for (var i = 0; i< paragraphs.length; i++) {
+      paragraphs[i].classList.add("article-text");
+    }
+  </script>
+</html>
+
+
