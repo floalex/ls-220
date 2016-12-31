@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Empty Page</title>
+  </head>
+  <body></body>
+  <script>
+    var paragraph = document.createElement("p");
+    paragraph.textContent = "This is a test.";
+    document.body.appendChild(paragraph);   // Append node to the end of parent.childNodes
+    
+    // You can't call appendChild on document. Attempting to do so will result in an error. Instead, call appendChild on 
+    // document.body, which is the body element in the page.
+    
+    // it is best to always include it. You'll typically want to use true to get a copy of the entire DOM tree starting with node
+    var paragraph2 = paragraph.cloneNode(true);
+    document.body.appendChild(paragraph2);
+    
+    // We can remove the paragraphs we created above easily
+    paragraph.remove();  // Removes node from the DOM
+    paragraph2.remove();
+  </script>
+</html>

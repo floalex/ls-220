@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>DOM Exercise</title>
+    <meta charset="UTF-8" />
+    <style>
+      .heading { text-align: center; }
+      ul { list-style: none; }
+      .bulleted { list-style: disc; }
+      .hidden { display: none; }
+      #notice {
+        padding: 15px;
+        color: #a2a299;
+        background: #f0f0aa;
+      }
+      body#styled {
+        padding: 25px 0;
+        margin: 0;
+        font: normal 16px Helvetica, Arial, sans-serif;
+        color: #16997c;
+        background: #5bccb3;
+      }
+      body#styled main {
+        display: block;
+        max-width: 550px;
+        padding: 20px;
+        margin: 0 auto;
+        background: #ffffff;
+        box-sizing: border-box;
+      }
+      body#styled h1 {
+        text-align: center;
+        color: #CC183E;
+      }
+    </style>
+   <body>
+     <main>
+       <h1 id="primary_heading">I should have a class of heading</h1>
+       <ul id="list">
+         <li>This list</li>
+         <li>Needs a class</li>
+         <li>Of bulleted</li>
+       </ul>
+       <p>This <a href="#" id="toggle">link</a> needs a click handler on it. The handler will find the div with id of notice and check its class. If it has a class of hidden, change it to a class of visible. Otherwise, change it to hidden.</p>
+       <div id="notice" class="hidden">
+         <p>Oh no! I'm allergic to the light! Hide me, quick! Click the link above!</p>
+       </div>
+       <p id="multiplication">What's 13 times 9?</p>
+     </main>
+   </body>
+   <script>
+   // 1. Begin at the top of the page by adding a class on the h1 just like it says within its text. If you need to know what its ID attribute is 
+   // in order to traverse to it with getElementById, you can use Chrome's elements panel to inspect it and the other elements on the 
+   // page. Click the elements tab in the top navigation, then follow the nested HTML elements until you get to the h1. Use the ID on it
+   // to find it with JavaScript and set its class attribute to heading with the setAttribute DOM method.
+  
+   var h1s = document.querySelector("h1");
+   h1s.setAttribute("class", "heading");
+  // document.getElementById('primary_heading').setAttribute('class', 'heading');
+  
+  // 2. Now do the same with the ul. Locate it in the elements inspector, find its ID, then use that to set its class attribute to bulleted
+  document.getElementById("list").setAttribute("class", "bulleted");
+  
+  // 3. The link on the page should have an onclick event added to it. Find the ID and set the onclick event handler to a function that 
+  // finds the element that is currently hidden. By using getAttribute, check to see whether or not its class is currently set to hidden, 
+  // and if so change it to visible. If it's visible, change it back to hidden. This will allow you to click the same link to toggle its 
+  // visibility.
+  
+  document.getElementById("toggle").onclick = function(e) {
+    e.preventDefault();
+    var notice = document.getElementById("notice");
+    if (notice.getAttribute("class") === "hidden") {
+      notice.setAttribute("class", "visible");
+    } else {
+      notice.setAttribute("class", "hidden");
+    }
+  };
+  
+  // 4. Add a similar onclick event to the notice div that sets its own class to hidden. Inside the onclick function, the keyword 
+  // this will point to the current DOM element, meaning you can use this.setAttribute to change its class rather than have to 
+  // locate it with getElementById.
+  
+  document.getElementById("notice").onclick = function() {
+    this.setAttribute("class", "hidden");
+  };
+  
+  // 5. Locate the multiplication paragraph and change its text to be the result of the arithmetic problem presented with the innerText method.
+  
+  // document.getElementById("multiplication").innerText = 13 * 9;
+  
+  // 6. Finally, we'll locate the body element and add an ID of "styled" to apply our styles to all of the elements on the page. The body 
+  // doesn't currently have an ID, though, so we'll have to locate it by some other means. The document object in JavaScript, the one 
+  // you use when calling getElementById, has a property on it called body that points to our DOM element for the HTML body 
+  // element. Use document.body to add the "styled" ID using setAttribute.
+  
+  document.body.setAttribute("id", "styled");
+  
+  </script>
+</html>
