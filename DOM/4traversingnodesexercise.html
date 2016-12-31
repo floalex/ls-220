@@ -1,0 +1,61 @@
+refer to https://en.wikipedia.org/wiki/Polar_bear for the following exercises.
+
+1. Write JavaScript code to retrieve how many words are in each h2 heading in the page.
+var h2s = document.querySelectorAll("h2");
+// turn the HTMLelements into array so we can use the Array methods like forEach
+var h2Array = Array.prototype.slice.call(h2s);
+h2Array.map(function(element) {
+  return element.textContent.split(" ").length;
+});
+
+2. There is a table of content on the page with a title of "Contents" and links to the various sections of content on the page ("Naming 
+   and etymology", "Taxonomy and evolution", etc.). 
+   Use three different DOM methods to retrieve a reference to the DOM object that represents the table of contents div.
+   
+   document.getElementById("doc");
+   document.querySelector("#toc");
+   document.querySelectorAll(".toc")[0];
+
+3. Write JavaScript code to color every other link in the table of contents green.
+
+var links = document.querySelectorAll(".toc a");
+
+for (var i = 0; i < links.length; i++) {
+  if (i % 2 !== 0) {
+    links[i].style.color = "green";
+  }
+}
+
+4. Write JavaScript code to retrieve the text of every thumbnail caption on the page.
+
+var captionsNodes = document.querySelectorAll(".thumbcaption");
+
+var captionsArray = [];
+for (var i = 0; i < captionsNodes.length; i++) {
+}
+
+5. The scientific classification of an animal can be thought of as a series of key-value pairs, where the keys are the taxonomic ranks 
+   (Domain, Kingdom, Phylum, Class, Order, Family, Genus, and Species) and the values are the specific group that animal belongs to 
+   for that rank.
+   
+   The webpage includes this information on the page. Write a JavaScript function that will extract this information from the page 
+   and return an Object with the taconomic ranks as keys and the animal's classification for that rank as values.
+   
+var keys = ["Kingdom", "Phylum", "Clade", "Class", "Order", "Suborder", "Family", "Tribe", "Genus", "Species"];
+
+var classification = {};
+
+var tds = document.querySelectorAll(".infobox td");
+
+for (var i = 0; i < tds.length; i++) {
+  var cell = tds[i];
+  
+  keys.forEach(function(key) {
+    if (cell.textContent.indexOf(key) !== -1) {
+      var link = cell.nextElementSibling.firstElementChild;
+      classification[key] = link.textContent;
+    }
+  });
+}
+
+console.log(classification);
