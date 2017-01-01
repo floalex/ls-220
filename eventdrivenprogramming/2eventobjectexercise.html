@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>The Event Object</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+      // 1. write JavaScript code so that the red X is moved to wherever the document is clicked.
+      // document.addEventListener("click", function(event) {
+      //   var x = document.querySelector(".x");
+      //   // The horizontal position of the mouse when the event occured, relative to the visible area of the page.
+      //   x.style.left = event.clientX.toString() + 'px';
+      //   // The vertical position of the mouse when the event occured, relative to the visible area of the page.
+      //   x.style.top = event.clientY.toString() + 'px';
+      // });
+      
+      // 2. Update the code to move the red X as the mouse is moved around the document instead of when it is clicked.
+      // document.addEventListener("mousemove", function(event) {
+      //   var x = document.querySelector(".x");
+      //   x.style.left = event.clientX.toString() + 'px';
+      //   x.style.top = event.clientY.toString() + 'px';
+      // });
+      
+      // 3. Update the code to change the color of the red X to blue if the b key is pressed, green if the g key is pressed, or back to red if 
+      // the r key is pressed.
+      
+      // document.addEventListener("mousemove", function(event) {
+      //   var x = document.querySelector(".x");
+      //   x.style.left = event.clientX.toString() + 'px';
+      //   x.style.top = event.clientY.toString() + 'px';
+      // });
+      
+      // document.addEventListener("keyup", function(event) {
+      //   // which: The ASCII key code, which is a Number that specifies the key that was pressed.
+      //   var key = event.which;
+      //   var color;
+        
+      //   if (key === 82) {
+      //     color = 'red';
+      //   } else if (key === 71) {
+      //     color = 'green';
+      //   } else if (key === 66) {
+      //     color = 'blue';
+      //   }
+        
+      //   if (color) {
+      //     var x = document.querySelector(".x");
+      //     for (var i = 0; i < x.children.length; i++) {
+      //       var child = x.children[i];
+      //       child.style.background = color;
+      //     }
+      //   }
+      // });
+      
+      // 4. Using the composer HTML and CSS code, write the JavaScript that is required to add a character-counter that updates as a user types.
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        var composer = document.querySelector(".composer");
+        var textarea = composer.querySelector("textarea");
+        var counter = composer.querySelector(".counter");
+        var button = composer.querySelector("button");
+        
+        function updateCounter() {
+          var length = textarea.value.length;
+          var remaining = 140 - length;
+          var message = remaining.toString() + ' characters remaning.';
+          var invalid = remaining < 0;
+          
+          textarea.classList.toggle('invalid', invalid);
+          // disable button when the contidion(remainning character less than 0) evaluates to true
+          button.disabled = invalid;
+          
+          counter.textContent = message;
+        }
+        
+        textarea.addEventListener('keyup', updateCounter);
+        updateCounter();
+      });
+      
+    </script>
+    <style>
+      .x {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 20px;
+        left: 20px;
+      }
+      
+      .x .horizontal {
+        width: 45px;
+        height: 5px;
+        position: absolute;
+        left: -20px;
+        background: red;
+      }
+      
+      .x .vertical {
+        height: 45px;
+        width: 5px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+      
+      .composer {
+        background: #f5f5f5;
+        padding:  1em;
+        width:  30em;
+      }
+      
+      .composer textarea {
+        width: 100%;
+        height: 4em;
+      }
+      
+      .composer textarea.invalid {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div> 
+    
+    <div class="composer">
+      <textarea placeholder="Enter your message"></textarea>
+      <p class="counter"></p>
+      <button type="submit">Post Message</button>
+    </div>
+  </body>
+</html>
