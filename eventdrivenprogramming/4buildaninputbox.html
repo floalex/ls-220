@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Build an Input Box</title>
+    <meta charset="utf-8" />
+    <script>
+      var cursorInterval;
+      var focusedTextfield;
+      // 1. Write Javascript code that adds the class focused to the .text-field element when it is clicked.
+      document.addEventListener("DOMContentLoaded", function() {
+        var textField = document.querySelector(".text-field");
+        textField.addEventListener('click', function(event) {
+          event.stopPropagation();   // stop bubbling up 
+          
+          focusedTextfield = textField;
+          textField.classList.add("focused");
+          
+          // 3. When the .text-field element is clicked, create an interval that adds and removes the class cursor from .text-field every 
+          // 500 milliseconds.
+          cursorInterval = setInterval(function() {
+            textField.classList.toggle('cursor');
+          }, 500);
+        
+        });
+      });
+      // 2. Write JavaScript code that removes the class focused from the .text-field element when the document is clicked.
+      document.addEventListener('click', function(event) {
+        // 4. When the document is clicked, clear the interval that is adding and removing the cursor class.
+        clearInterval(cursorInterval);
+        if (focusedTextfield) {
+          focusedTextfield.classList.remove("focused", "cursor");
+          focusedTextfield = null;
+        }
+      });
+      
+      // 5. When the .text-field is "focused" and a key is pressed on the keyboard, add the String value of the pressed key to the 
+      // .content element.
+      document.addEventListener("keyup", function(event) {
+        if (focusedTextfield) {
+          var contentDiv = focusedTextfield.querySelector(".content");
+          // 6. When the Backspace key is pressed, delete the last character from the text with the .content element.Array
+          if (event.which === 8) {
+            contentDiv.textContent = contentDiv.textContent.substr(0, contentDiv.textContent.length - 1);
+          } else if (event.key.length === 1) {
+            contentDiv.textContent = contentDiv.textContent + event.key;
+          }
+        }
+      });
+      
+    </script>
+    <style>
+      .text-field {
+        border: solid 1px #ccc;
+        padding: 1em;
+        cursor: pointer;
+        font-family: sans-serif;
+        font-size: 18px;
+        overflow: hidden;
+        width: 300px; 
+      }
+      
+      .text-field .content {
+        display: inline-block;
+        height: 21px;
+        float: left;
+        white-space: pre;
+      }
+      
+      .text-field.focused {
+        border-color: black;
+      }
+      
+      .text-field.focused .content {
+      
+      }
+      
+      .text-field.cursor .content {
+        border-right: solid 2px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-field">
+      <div class="content"></div>
+    </div>
+  </body>
+</html>
