@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Guessing the Game</title>
+    <meta charset="utf-8" />
+    <script>
+      // 1. Start out by creating function that will be called when the document's DOMContentLoaded event fires. 
+      // The rest of your code will be placed within this function to ensure the page is fully loaded before it runs.
+      document.addEventListener("DOMContentLoaded", function() {        
+        // 2. Create an answer number by using the random number method referenced above and store it in a variable named answer.
+        var answer, guesses;
+        
+        // 3. Add an event listener that will run when the form is submitted. Prevent the form from actually being submitted using 
+        // preventDefault (otherwise, the page will refresh and we'll lose everything!)
+        // Retrieve the value from the input and convert it to a Number using parseInt. Store this number in a local variable, guess.
+        var form = document.querySelector("form");
+        var input = document.querySelector('#guess');
+        var paragraph = document.querySelector("p");
+        
+        // 10. As an added bonus, you can keep track of the number of guesses it took to guess the answer and display it with the correct 
+        // answer message.
+        function newGame() {
+          answer = Math.floor(Math.random() * 100) + 1;
+          guesses = 0;
+          paragraph.textContent = "Guess a number from 1 to 100";
+        }
+        
+        form.addEventListener("submit", function(event) {
+          event.preventDefault();
+          
+          var guess = parseInt(input.value, 10);
+          
+          guesses++;
+          
+          // 4. Create a local variable that we will use to store the String for dislpay to the user. Call it `message.
+          var message;
+          
+          // 5. Check to see if the guess is higher than the answer, and if so set the message to say that it is lower than the guess.
+          // 6. Repeat the same check and message creation for when the guess is lower, or for when it was correctly guessed.
+          if (guess === answer) {
+            message = 'You guessed it! It took you ' + guesses + ' guesses.';
+          } else if (guess > answer) {
+            message = 'My number is lower than ' + guess;
+          } else {
+            message = 'My number is higher than ' + guess;
+          }
+          
+          // 7. Change the message on the page to tell the player which it is. Find the message element on the page using querySelector and 
+          // set its textContent property to the value of message.
+          paragraph.textContent = message;          
+        });
+        
+        // 8. Add an event listener that fires when the "New game" link is clicked.
+        var link = document.querySelector("a");
+        link.addEventListener('click', function() {
+          // 9. In the event listener, change the answer to a new random number from 1 to 100, then change the message on the page back to
+          // the request to the player to guess a number.
+          newGame();
+        });
+        
+        newGame();
+      });
+    </script>
+    <style>
+      html, body {
+        padding: 25px 0;
+        margin: 0;
+        font: normal 16px Helvetica, Arial, sans-serif;
+        text-align: center;
+        color: #16997c;
+        background: #5bccb3;
+      }
+      
+      main {
+        display: block;
+        max-width: 450px;
+        padding: 20px;
+        margin: 0 auto;
+        background: #ffffff;
+        box-sizing: border-box;
+      }
+      
+      h1 {
+        color: #CC183E;
+      }
+      
+      fieldset {
+        padding: 0 0 25px 0;
+        margin: 0;
+        border: none;
+      }
+      
+      input[type="text"] {
+        width: 80px;
+        height: 50px;
+        padding: 5px;
+        margin: 0 0 20px 0;
+        font: normal 24px Georgia, Palatino, serif;
+        text-align: center;
+        border: 1px solid #cecece;
+        box-sizing: border-box;
+      }
+      
+      input[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        font: normal 20px Helvetica, Arial, sans-serif;
+        color: #ffffff;
+        text-shadow: 1px 1px 5px rgba(80, 80, 80, .8);
+        border: 1px solid #91112C;
+        box-shadow: 0 0 1px 1px #780e24;
+        border-radius: 11px;
+        background: linear-gradient(to bottom, #CC183E 0%, #780E24 100%);
+      }
+      
+      a { color: #cc183e; }
+
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Number Guessing Game</h1>
+      <p>Loading...</p>
+      <form action="" method="get">
+        <fieldset>
+          <input type="text" id="guess" maxlength="3" />
+          <input type="submit" value="Guess" />
+        </fieldset>
+      </form>
+      <a href="#">New game</a>
+    </main>
+  </body>
+</html>
