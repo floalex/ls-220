@@ -6,6 +6,7 @@ body {
 main {
   float: right;
   width: 80%;
+  clear: both;
 }
 
 #page {
@@ -21,9 +22,40 @@ fieldset {
   border: none;
 }
 
+#search {
+  padding: 20px;
+  overflow: hidden;
+}
+
+#search input[type=search] {
+  float: left;
+  width: 80%;
+  height: 40px;
+  font: normal 16px Helvetica, Arial, sans-serif;
+  border: 1px solid #cccccc;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+
+#search input[type=submit] {
+  float: left;
+  width: 20%;
+  height: 40px;
+  font: normal 16px Helvetica, Arial, sans-serif;
+  vertical-align: top;
+  border: 1px solid #cccccc;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, #f0f0f0 0%, #d5d5d5 100%);
+  -webkit-appearance: none;
+}
+
 main ul {
   list-style: none;
-  padding: 0 20px;
+  padding: 0 20px 0 0;
 }
 
 main li {
@@ -39,7 +71,7 @@ main li + li {
 }
 
 aside {
-  padding: 50px 20px 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 aside ul {
