@@ -180,6 +180,7 @@ Game.prototype = {
   },
   // in order to call tne necessary methods in the game, initialize them in one place
   init: function() {
+    this.unbind();
     this.createBlanks();
     this.emptyGuesses();
     this.resetTreeClass();

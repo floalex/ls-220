@@ -1,0 +1,151 @@
+@import url("whitespace-reset.css");
+
+body {
+  font: normal 16px Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  padding: 30px 15px;
+  background: #6f5499;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #cdbfe3;
+  text-align: center;
+}
+
+header h1 {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0 0 10px 0;
+}
+
+main {
+  background: #ffffff;
+  padding: 0 15px 30px 15px;
+}
+
+.row {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.first {
+  width: 750px;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.half {
+  width: 50%;
+  float: left;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="search"] {
+  max-width: 245px;
+}
+
+form h2 {
+  padding-bottom: 9px;
+  margin: 40px 0 20px 0;
+  text-align: center;
+  border-bottom: 1px solid #eeeeee;
+}
+
+form {
+  width: 700px;
+  margin: 0 auto;
+}
+
+dl {
+  margin-bottom: 10px;
+}
+
+dt,
+dd {
+  display: inline-block;
+}
+
+dt {
+  width: 33%;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+dd {
+  width: 350px;
+}
+
+#create-form input[type="text"],
+#create-form input[type="email"],
+#create-form input[type="tel"] {
+  width: 100%;  
+}
+
+.button {
+  padding: 10px;
+  box-sizing: border-box;
+  color: #6f5499;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.button:hover {
+  color: #ffffff;
+  background-color: #6f5499;
+}
+
+.large {
+  display: inline-block;
+  padding: 7px 55px;
+  margin-bottom: 30px;
+  font: 16px Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+#create-form input[type="submit"] + input[type="submit"] {
+  margin-left: 20px;
+}
+
+#empty-contact {
+  width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+footer {
+  width: 700px;
+  padding: 20px 0 0 20px;
+  margin: 20px auto 40px auto;
+  text-align: center;
+  border-top: 1px solid #eeeeee;
+}

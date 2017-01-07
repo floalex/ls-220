@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Flo's Contact Manager</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/ls-220/examprep/contactmanager.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/ls-220/examprep/contactmanager.js"></script>     
+  </head>
+  <body>
+    <header>
+      <h1>Contact Manager</h1>
+      <p>Using jQuery, LocalStorage and Handlebars</p>
+    </header>
+    
+    <main>
+      <div class="row first">
+        <div class="half">
+          <a href="#" class="button medium" id="toggle">Add Contacts</a>
+        </div>
+        <div class="half">
+          <input type="search" placeholder="Seach contacts" />
+        </div>
+      </div>
+      
+      <form id="create-form" action="" method="post">
+        <h2>Create Contact</h2>
+        <fieldset>
+          <dl>
+            <dt>
+              <label for="name">Full name:</label>
+            </dt>
+            <dd>
+              <input type="text" name="name" />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="email">Email addesses:</label>
+            </dt>
+            <dd>
+              <input type="email" name="email" />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="number">Telephone number:</label>
+            </dt>
+            <dd>
+              <input type="tel" name="number" />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="tag">Tag:</label>
+            </dt> 
+            <dd>
+              <input type="text" name="tag" />
+            </dd>
+          </dl>
+          <dl>
+            <dt></dt>
+            <dd>
+              <input type="submit" value="Submit" class="button large" />
+              <input type="submit" value="Cancel" class="button large" />
+            </dd>
+          </dl>
+        </fieldset>
+      </form>
+      
+      <div id="empty-contact" class="row">
+        <h2>There is no contacts</h2>
+        <a href="#" class="button medium" id="toggle">Add Contacts</a>
+      </div>
+      
+      <div id="contact-list">
+      </div>
+    </main>
+    
+    <footer>
+      <p>Happy New Year!</p>
+    </footer>
+  </body>
+</html>
