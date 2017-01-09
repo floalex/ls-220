@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/ls-220/examprep/contactmanager.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
     <script src="/ls-220/examprep/contactmanager.js"></script>     
   </head>
   <body>
@@ -14,16 +15,7 @@
     </header>
     
     <main>
-      <div class="row first">
-        <div class="half">
-          <a href="#" class="button medium" id="toggle">Add Contacts</a>
-        </div>
-        <div class="half">
-          <input type="search" placeholder="Seach contacts" />
-        </div>
-      </div>
-      
-      <form id="create-form" action="" method="post">
+      <form id="create-form" action="/contacts/new" method="post">
         <h2>Create Contact</h2>
         <fieldset>
           <dl>
@@ -31,7 +23,7 @@
               <label for="name">Full name:</label>
             </dt>
             <dd>
-              <input type="text" name="name" />
+              <input type="text" name="name" id="name" value="" required />
             </dd>
           </dl>
           <dl>
@@ -39,7 +31,7 @@
               <label for="email">Email addesses:</label>
             </dt>
             <dd>
-              <input type="email" name="email" />
+              <input type="email" name="email" id="email" value="" required />
             </dd>
           </dl>
           <dl>
@@ -47,7 +39,7 @@
               <label for="number">Telephone number:</label>
             </dt>
             <dd>
-              <input type="tel" name="number" />
+              <input type="tel" name="number" id="number" value="" required />
             </dd>
           </dl>
           <dl>
@@ -55,26 +47,106 @@
               <label for="tag">Tag:</label>
             </dt> 
             <dd>
-              <input type="text" name="tag" />
+              <input type="text" name="tag" id="tag" value="" />
             </dd>
           </dl>
           <dl>
             <dt></dt>
             <dd>
               <input type="submit" value="Submit" class="button large" />
-              <input type="submit" value="Cancel" class="button large" />
+              <input type="button" id="cancel" value="Cancel" class="button large toggle-create" />
             </dd>
           </dl>
         </fieldset>
       </form>
       
-      <div id="empty-contact" class="row">
-        <h2>There is no contacts</h2>
-        <a href="#" class="button medium" id="toggle">Add Contacts</a>
-      </div>
+      <section id="content">
+        <div class="row first">
+          <div class="half">
+            <a href="#contacts/new" class="button medium toggle-create">Add Contacts</a>
+          </div>
+          <div class="half">
+            <input type="search" placeholder="Seach contacts" />
+          </div>
+        </div>
+        
+        <div id="contact-list">
+          <!--insert contacts here-->
+        </div>
+        
+        <div id="empty-contact" class="row">
+          <h2>There is no contacts</h2>
+          <a href="#contacts/new" class="button medium toggle-create">Add Contacts</a>
+        </div>
+        
+      </section>
       
-      <div id="contact-list">
-      </div>
+      <form id="edit-form" action="/contacts/edit" method="post">
+        <h2>Edit Contact</h2>
+        <fieldset>
+          <dl>
+            <dt>
+              <label for="name">Full name:</label>
+            </dt>
+            <dd>
+              <input type="text" name="name" id="name" value="" required />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="email">Email addesses:</label>
+            </dt>
+            <dd>
+              <input type="email" name="email" id="email" value="" required />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="number">Telephone number:</label>
+            </dt>
+            <dd>
+              <input type="tel" name="number" id="number" value="" required />
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <label for="tag">Tag:</label>
+            </dt> 
+            <dd>
+              <input type="text" name="tag" id="tag" value="" />
+            </dd>
+          </dl>
+          <dl>
+            <dt></dt>
+            <dd>
+              <input type="submit" value="Submit" class="button large" />
+              <input type="button" id="cancel" value="Cancel" class="button large" />
+            </dd>
+          </dl>
+        </fieldset>
+      </form>
+      
+      <script id="contacts" type="text/x-handlebars">
+        {{#each contacts}}
+        {{> contact}}
+        {{/each}}
+      </script>
+      
+      <script id="contact" data-type="partial" type="text/x-handlebars">
+        <li data-id="{{id}}">
+          <h3>{{name}}</h3>
+          <dl>
+            <dt>Phone Number:</dt>
+            <dd>{{number}}</dd>
+            <dt>Email:</dt>
+            <dd>{{email}}</dd>
+            <dt>Tags:</dt>
+            <dd>{{tag}}</dd>
+          </dl>
+          <a href="#contacts/edit/{{id}}" class="button small">Edit</a>
+          <a href="#contacts/delete/{{id}}" class="button small">Delete</a>
+        </li>
+      </script>
     </main>
     
     <footer>

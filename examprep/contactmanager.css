@@ -1,7 +1,21 @@
 @import url("whitespace-reset.css");
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font: normal 16px Helvetica, Arial, sans-serif;
+}
+
+form,
+#empty-contact,
+footer {
+  max-width: 950px;
 }
 
 a {
@@ -28,6 +42,7 @@ h1 {
 }
 
 main {
+  position: relative;
   background: #ffffff;
   padding: 0 15px 30px 15px;
 }
@@ -36,14 +51,19 @@ main {
   background-color: #f5f5f5;
   padding: 20px;
   border: 1px solid #e3e3e3;
+  border-radius: 4px;
   margin-bottom: 20px;
   box-sizing: border-box;
   text-align: center;
 }
 
-.first {
-  width: 750px;
+.first,
+#contact-list {
+  max-width: 1000px;
   margin: 0 auto;
+}
+
+.first {
   overflow: hidden;
   margin-bottom: 20px;
 }
@@ -78,7 +98,7 @@ form h2 {
 }
 
 form {
-  width: 700px;
+  display: none;
   margin: 0 auto;
 }
 
@@ -86,12 +106,12 @@ dl {
   margin-bottom: 10px;
 }
 
-dt,
-dd {
+form dt,
+form dd {
   display: inline-block;
 }
 
-dt {
+form dt {
   width: 33%;
   margin-right: 10px;
   font-size: 14px;
@@ -99,22 +119,23 @@ dt {
   text-align: right;
 }
 
-dd {
+form dd {
   width: 350px;
 }
 
-#create-form input[type="text"],
-#create-form input[type="email"],
-#create-form input[type="tel"] {
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"] {
   width: 100%;  
 }
 
 .button {
+  display: inline-block;
   padding: 10px;
-  box-sizing: border-box;
   color: #6f5499;
   border: 1px solid #333333;
   border-radius: 5px;
+  box-sizing: border-box;
   background-color: transparent;
 }
 
@@ -124,7 +145,6 @@ dd {
 }
 
 .large {
-  display: inline-block;
   padding: 7px 55px;
   margin-bottom: 30px;
   font: 16px Helvetica, Arial, sans-serif;
@@ -132,18 +152,22 @@ dd {
   cursor: pointer;
 }
 
-#create-form input[type="submit"] + input[type="submit"] {
+form input[type="submit"] + input[type="button"] {
   margin-left: 20px;
 }
 
 #empty-contact {
-  width: 700px;
   margin: 0 auto;
   margin-bottom: 20px;
 }
 
+#contact-list li {
+  display: inline-block;
+  width: 25%;
+  padding: 0 5px;
+}
+
 footer {
-  width: 700px;
   padding: 20px 0 0 20px;
   margin: 20px auto 40px auto;
   text-align: center;
