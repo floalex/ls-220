@@ -53,13 +53,24 @@ $(function() {
     $categories.each(function(i) {
       var $checkbox = $categories.eq(i),
           checked = $checkbox.is(":checked"),
-          category = $checkbox.val();
-      
-      catalog.filter(function(item) {
+          category = $checkbox.val(),
+          category_item;
+          
+      // get the list for the retain categories    
+      category_item = catalog.filter(function(item) {
         return item.category === category;
-      }).forEach(function(item) {
+      });
+
+      // in each categorized items list, show the checked categories and hide the unchecked one
+      category_item.forEach(function(item) {
         findItem(item.id).toggle(checked);
       });
+      
+      // catalog.filter(function(item) {
+      //   return item.category === category;
+      // }).forEach(function(item) {
+      //   findItem(item.id).toggle(checked);
+      // });
     });
   }
   
@@ -93,6 +104,8 @@ $(function() {
   //   category_item = catalog.filter(function(item) {
   //     return item.category === category;
   //   });
+    
+  //   console.log(category_item);
     
   //   // in the retain list, change the current toggle status
   //   category_item.forEach(function(item) {

@@ -15,7 +15,8 @@ $(function() {
   function createElement(data) {
     var $d = $("<div />", {
       "class": data.shape_type,
-      data: data,
+      // referenhce: http://api.jquery.com/data/#data-obj
+      data: data,  // $("div").data(data);
     });
     
    resetElement($d, data);

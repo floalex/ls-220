@@ -78,6 +78,11 @@ h2 {
   margin-bottom: 20px;
 }
 
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 input {
   padding: 5px;
   font-size: 14px;
@@ -163,8 +168,15 @@ form input[type="submit"] + input[type="button"] {
 
 #contact-list li {
   display: inline-block;
-  width: 25%;
-  padding: 0 5px;
+  width: 24.5%;
+  padding: 10px 5px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tag a {
+  font-size: 14px;
+  color: #333333;
 }
 
 footer {

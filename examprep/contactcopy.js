@@ -6,14 +6,12 @@ $(function() {
       $edit_form = $("#edit-form"),
       $content = $("#content"),
       $empty = $("#empty-contact"),
-      $contact_list = $("#contact-list"),
-      $contacts = $("#contact-list li");
+      $contacts = $("#contact-list");
   
-  function getFormObject(form) {
+  function createPersonObject(form) {
     var person = {};
     
     form.serializeArray().forEach(function(object) {
-      // stores the form input current value(text entered by the user) 
       person[object.name] = object.value;
     });
     
@@ -21,9 +19,7 @@ $(function() {
   }
       
   var ContactManager = {
-    checkID: function() {
-      return this.collections.length > 0 ? this.collections[this.collections.length - 1].id : 0;
-    },
+    last_id: 0,
     cacheTemplate: function() {
       $("script[type='text/x-handlebars']").each(function() {
         var $tmpl = $(this);
@@ -36,7 +32,7 @@ $(function() {
       });
     },
     add: function() {
-      var person = getFormObject($create_form);
+      var person = createPersonObject($create_form);
       this.last_id++;
       person.id = this.last_id;
           
@@ -46,18 +42,7 @@ $(function() {
       this.collections = this.collections.filter(function(element) {
         return idx !== element.id;
       });
-    },
-    get: function(id) {
-      var found_item;
-      
-      this.collections.forEach(function(item) {
-        if (item.id === id) {
-          found_item = item;
-          return false; 
-        }
-      });
-      
-      return found_item;
+      console.log(this.collections);
     },
     findParent: function(e) {
       return $(e.target).closest("li");
@@ -65,13 +50,6 @@ $(function() {
     findID: function($person) {
       // broswer stores the id as string in data-id attr
       return Number($person.attr("data-id"));
-    },
-    copyFrom: function(person) {
-      $edit_form.find("#name").val(person.name);
-      $edit_form.find("#email").val(person.email);
-      $edit_form.find("#number").val(person.number);
-      $edit_form.find("#tag").val(person.tag);
-      $edit_form.attr("data-id", person.id);
     },
     toggleCreate: function(e) {
       e.preventDefault();
@@ -87,48 +65,14 @@ $(function() {
     newContact: function(e) {
       e.preventDefault();
       var person = this.add();
+      $contacts.append($(templates.comment(person)));
       this.collections.push(person);
-      
-      // wihout emptying the previous contacts contents, there will be duplicated contacts appeared.
-      $contact_list.empty();
-      this.renderContacts();
       
       this.checkEmptyContacts();
       
       this.toggleCreate(e);
     },
-    updateContact: function(e) {
-      e.preventDefault();
-    
-      var id = +$edit_form.attr("data-id");
-      var person = this.get(id);
-      var updatePerson = getFormObject($edit_form);
-      
-      for (var prop in person) {
-        person[prop] = updatePerson[prop];
-      }
-      
-      // since the form doesn't allow user to set id, need to set the id back to the original id, 
-      // otherwise the id value will be "undefined"
-      person.id = id;
-      // console.log(person);
-      
-      // render the updated contact information 
-      $contact_list.empty();
-      this.renderContacts();
-      
-      this.toggleEdit(e);
-    },
-    editForm: function(e) {
-      e.preventDefault();
-      
-      var $person = this.findParent(e),
-          id = this.findID($person),
-          person = this.get(id);
-      
-      // copy every field from the previous value of that person
-      this.copyFrom(person);
-      
+    editPerson: function(e) {
       this.toggleEdit(e);
     },
     deletePerson: function(e) {
@@ -147,10 +91,10 @@ $(function() {
       
       var $people = $(templates.contacts({ contacts: this.collections }));
       
-      $contact_list.append($people);
+      $contacts.append($people);
     },
     checkEmptyContacts: function() {
-      if ($contact_list.find('li').length === 0) {
+      if ($contacts.find('li').length === 0) {
         $empty.show();
       } else {
         $empty.hide();
@@ -170,16 +114,13 @@ $(function() {
     bindEvents: function() {
       $toggle_create.on("click", this.toggleCreate.bind(this));
       $create_form.on("submit", this.newContact.bind(this));
+      $contacts.on("click", "a.edit", this.editPerson.bind(this));
+      $contacts.on("click", "a.delete", this.deletePerson.bind(this));
       $toggle_edit.on("click", this.toggleEdit.bind(this));
-      // update the contact when submit the edit form
-      $edit_form.on("submit", this.updateContact.bind(this));
-      $contact_list.on("click", "a.edit", this.editForm.bind(this));
-      $contact_list.on("click", "a.delete", this.deletePerson.bind(this));
       $(window).on("unload", this.saveContactList.bind(this));
     },
     init: function() {
       this.collections = this.getContactList();
-      this.last_id = this.checkID();
       this.bindEvents();
       this.cacheTemplate();
       this.renderContacts();

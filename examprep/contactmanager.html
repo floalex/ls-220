@@ -66,7 +66,7 @@
             <a href="#contacts/new" class="button medium toggle-create">Add Contacts</a>
           </div>
           <div class="half">
-            <input type="search" placeholder="Seach contacts" />
+            <input type="search" id="search" placeholder="Seach contacts" />
           </div>
         </div>
         
@@ -120,7 +120,7 @@
             <dt></dt>
             <dd>
               <input type="submit" value="Submit" class="button large" />
-              <input type="button" id="cancel" value="Cancel" class="button large" />
+              <input type="button" id="cancel" value="Cancel" class="button large toggle-edit" />
             </dd>
           </dl>
         </fieldset>
@@ -136,15 +136,18 @@
         <li data-id="{{id}}">
           <h3>{{name}}</h3>
           <dl>
-            <dt>Phone Number:</dt>
+            <dt><strong>Phone Number:</strong></dt>
             <dd>{{number}}</dd>
-            <dt>Email:</dt>
+            <dt><strong>Email:</strong></dt>
             <dd>{{email}}</dd>
-            <dt>Tags:</dt>
-            <dd>{{tag}}</dd>
+            
+            <div class="tag">
+            <dt><strong>Tag:</strong></dt>
+            <dd><a href="#">{{tag}}</a></dd>
+            </div>
           </dl>
-          <a href="#contacts/edit/{{id}}" class="button small">Edit</a>
-          <a href="#contacts/delete/{{id}}" class="button small">Delete</a>
+          <a href="#contacts/edit/{{id}}" class="button small edit">Edit</a>
+          <a href="#contacts/delete/{{id}}" class="button small delete">Delete</a>
         </li>
       </script>
     </main>
