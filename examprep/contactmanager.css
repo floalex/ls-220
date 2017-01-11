@@ -102,7 +102,8 @@ form h2 {
   border-bottom: 1px solid #eeeeee;
 }
 
-form {
+form,
+#no-search {
   display: none;
   margin: 0 auto;
 }

@@ -43,7 +43,8 @@ $(function() {
   
   var $items = $("main li"),
       $categories = $(":checkbox");
-      
+    
+  console.log($items);  
   // with search
   function findItem(idx) {
     return $items.filter("[data-id=" + idx + "]");
@@ -87,6 +88,12 @@ $(function() {
         findItem(item.id).hide();
       }
     });
+    // alternative, speed maybe slower using .each() method, see https://www.sitepoint.com/speed-question-jquery-each-vs-loop/
+    // $items.each(function() {
+    //   if (this.title.toLowerCase().indexOf(term) === -1) {
+    //     this.hide();
+    //   }
+    // });
   });
   
   $("aside :checkbox").on("change", function() {

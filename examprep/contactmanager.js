@@ -7,7 +7,7 @@ $(function() {
       $content = $("#content"),
       $empty = $("#empty-contact"),
       $contact_list = $("#contact-list"),
-      $contacts = $("#contact-list li");
+      $search = $("#search");
   
   function getFormObject(form) {
     var person = {};
@@ -149,12 +149,34 @@ $(function() {
       
       $contact_list.append($people);
     },
+    searchContacts: function(e) {
+      var query = $search.val().toLowerCase();
+      console.log(query);
+      // need to set the $contacts inside of this method here otherwise can't access $contacts as we get 
+      // the contact list after initiating ContactManager 
+      var $contacts = $contact_list.find("li");
+      
+      this.collections.forEach(function(person) {
+        var isInclude = person.name.toLowerCase().indexOf(query) !== -1;
+        $contacts.filter("[data-id=" + person.id + "]").toggle(isInclude);
+      });
+      
+      // $contacts.each(function() {
+      //   var name = $(this).find("h3").text().toLowerCase();
+      //   console.log(name);
+      //   if (name.indexOf(query) === -1) {
+      //     $(this).hide();
+      //   }
+      // });
+    },
     checkEmptyContacts: function() {
-      if ($contact_list.find('li').length === 0) {
-        $empty.show();
-      } else {
-        $empty.hide();
-      }
+      var empty_status = $contact_list.find('li').length === 0;
+      $empty.toggle(empty_status);
+      // if ($contact_list.find('li').length === 0) {
+      //   $empty.show();
+      // } else {
+      //   $empty.hide();
+      // }
     },
     saveContactList: function() {
       // the class name must match the variable in the app to avoid assigning undefined when first check the localStorage status
@@ -176,6 +198,8 @@ $(function() {
       $contact_list.on("click", "a.edit", this.editForm.bind(this));
       $contact_list.on("click", "a.delete", this.deletePerson.bind(this));
       $(window).on("unload", this.saveContactList.bind(this));
+      
+      $search.on("keyup", this.searchContacts.bind(this));
     },
     init: function() {
       this.collections = this.getContactList();
