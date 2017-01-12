@@ -44,7 +44,6 @@ $(function() {
   var $items = $("main li"),
       $categories = $(":checkbox");
     
-  console.log($items);  
   // with search
   function findItem(idx) {
     return $items.filter("[data-id=" + idx + "]");

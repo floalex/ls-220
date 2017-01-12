@@ -83,7 +83,23 @@ h3 {
   margin-bottom: 10px;
 }
 
-input {
+h4 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.labels li {
+  display: inline-block;
+  padding-right: 30px;
+  font-size: 14px;
+}
+
+.labels a:hover {
+  text-decoration: underline;
+}
+
+input,
+select {
   padding: 5px;
   font-size: 14px;
   border: 1px solid #cccccc;
@@ -170,14 +186,19 @@ form input[type="submit"] + input[type="button"] {
 #contact-list li {
   display: inline-block;
   width: 24.5%;
-  padding: 10px 5px;
+  padding: 10px 15px;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-.tag a {
+.labels dt,
+.labels dd {
+  display: inline-block;
+}
+
+.labels a {
   font-size: 14px;
-  color: #333333;
+  color: #6f5499;
 }
 
 footer {

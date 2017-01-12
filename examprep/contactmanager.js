@@ -7,7 +7,9 @@ $(function() {
       $content = $("#content"),
       $empty = $("#empty-contact"),
       $contact_list = $("#contact-list"),
-      $search = $("#search");
+      $search = $("#search"),
+      $no_search = $("#no-search"),
+      $tags = $(".labels");
   
   function getFormObject(form) {
     var person = {};
@@ -151,7 +153,6 @@ $(function() {
     },
     searchContacts: function(e) {
       var query = $search.val().toLowerCase();
-      console.log(query);
       // need to set the $contacts inside of this method here otherwise can't access $contacts as we get 
       // the contact list after initiating ContactManager 
       var $contacts = $contact_list.find("li");
@@ -161,13 +162,29 @@ $(function() {
         $contacts.filter("[data-id=" + person.id + "]").toggle(isInclude);
       });
       
-      // $contacts.each(function() {
-      //   var name = $(this).find("h3").text().toLowerCase();
-      //   console.log(name);
-      //   if (name.indexOf(query) === -1) {
-      //     $(this).hide();
-      //   }
-      // });
+      this.showNoSearch(query);
+    },
+    showNoSearch: function(query) {
+      var zero_contact = $contact_list.find("li:visible").length === 0;
+      
+      $no_search.find("strong").text(query);
+      $no_search.toggle(zero_contact);
+    },
+    toggleTags: function(e) {
+      e.preventDefault();
+      var $this = $(e.target);
+      var tag_name = $this.text();
+      var $contacts = $contact_list.find("li");
+     
+      this.collections.forEach(function(contact) {
+        var condition = tag_name === contact.tag;
+        $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
+      });
+      
+      if (tag_name === "All") {
+        $contact_list.empty();
+        this.renderContacts();
+      }
     },
     checkEmptyContacts: function() {
       var empty_status = $contact_list.find('li').length === 0;
@@ -200,6 +217,9 @@ $(function() {
       $(window).on("unload", this.saveContactList.bind(this));
       
       $search.on("keyup", this.searchContacts.bind(this));
+      $contact_list.on("click", ".labels a", this.toggleTags.bind(this));
+      
+      $tags.on("click", "a", this.toggleTags.bind(this));
     },
     init: function() {
       this.collections = this.getContactList();

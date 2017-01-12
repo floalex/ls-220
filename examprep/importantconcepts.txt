@@ -1,0 +1,10 @@
+Functions and Objects
+What "this" refers to
+Bind, Apply and Call
+Use Web APIs to work with the DOM
+Understanding event driven programming for front end development
+jQuery and the DOM (selectors, event handling, DOM manipulation and animation)
+HTML templating with handlebars
+Forms, serialization and deserialization
+Constructor Functions and Object Prototypes
+Pseudo-classical pattern and the OLOO pattern

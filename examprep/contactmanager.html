@@ -47,7 +47,14 @@
               <label for="tag">Tag:</label>
             </dt> 
             <dd>
-              <input type="text" name="tag" id="tag" value="" />
+              <select id="tag" name="tag">
+                <!--as tag is not a required field, user can leave out as blank-->
+                <option value=""></option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Other">Other</option>
+              </select>
             </dd>
           </dl>
           <dl>
@@ -70,6 +77,18 @@
           </div>
         </div>
         
+        <!--use the tab link ui-->
+        <div class="labels first">
+          <ul>
+            <li><strong>Tags:</strong></li>
+            <li><a href="#">All</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Engineering</a></li>
+            <li><a href="#">Other</a></li>
+          </ul>
+        </div>
+        
         <div id="contact-list">
           <!--insert contacts here-->
         </div>
@@ -80,7 +99,7 @@
         </div>
         
         <div id="no-search" class="row">
-          <h4>There is no contacts starting with<strong></strong></h4>
+          <h4>There is no contacts starting with <strong></strong></h4>
         </div>
         
       </section>
@@ -117,7 +136,14 @@
               <label for="tag">Tag:</label>
             </dt> 
             <dd>
-              <input type="text" name="tag" id="tag" value="" />
+              <select id="tag" name="tag">
+                <!--as tag is not a required field, user can leave out as blank-->
+                <option value=""></option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Other">Other</option>
+              </select>
             </dd>
           </dl>
           <dl>
@@ -145,7 +171,7 @@
             <dt><strong>Email:</strong></dt>
             <dd>{{email}}</dd>
             
-            <div class="tag">
+            <div class="labels">
             <dt><strong>Tag:</strong></dt>
             <dd><a href="#">{{tag}}</a></dd>
             </div>
