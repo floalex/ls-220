@@ -1,10 +1,25 @@
-Functions and Objects
-What "this" refers to
-Bind, Apply and Call
-Use Web APIs to work with the DOM
-Understanding event driven programming for front end development
-jQuery and the DOM (selectors, event handling, DOM manipulation and animation)
-HTML templating with handlebars
-Forms, serialization and deserialization
-Constructor Functions and Object Prototypes
-Pseudo-classical pattern and the OLOO pattern
+--Functions and Objects
+
+--What "this" refers to
+
+--Bind, Apply and Call
+  - bind returns a new function with the original function's this keyword permanently bound to a context,
+    its 'this' will never change when executed
+
+--Use Web APIs to work with the DOM
+
+--Understanding event driven programming for front end development
+
+--jQuery and the DOM (selectors, event handling, DOM manipulation and animation)
+  - The find method searches for matching elements beneath the current matched element. 
+    (find all the descendants from the element)
+  - The filter method searches for matching elements within the current set of matched elements. 
+    (use selectors like ":even" on the li element)
+
+--HTML templating with handlebars
+
+--Forms, serialization and deserialization
+
+--Constructor Functions and Object Prototypes
+
+--Pseudo-classical pattern and the OLOO pattern

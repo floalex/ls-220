@@ -72,6 +72,7 @@ $(function() {
       //   findItem(item.id).toggle(checked);
       // });
     });
+    
   }
   
   $("#search").on("submit", function(e) {
@@ -79,7 +80,7 @@ $(function() {
     
     var term = $(e.target).find("[type=search]").val().toLowerCase();
     
-    toggleCategories();
+    toggleCategories(e);
     catalog.forEach(function(item) {
       // hide the item if it is not the search term
       // use the String.indexOf method to check the characters

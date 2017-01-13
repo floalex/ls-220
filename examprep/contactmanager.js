@@ -9,7 +9,8 @@ $(function() {
       $contact_list = $("#contact-list"),
       $search = $("#search"),
       $no_search = $("#no-search"),
-      $tags = $(".labels");
+      // $tags = $(".labels");     // link interface
+      $tags = $(":checkbox");
   
   function getFormObject(form) {
     var person = {};
@@ -171,20 +172,46 @@ $(function() {
       $no_search.toggle(zero_contact);
     },
     toggleTags: function(e) {
-      e.preventDefault();
-      var $this = $(e.target);
-      var tag_name = $this.text();
-      var $contacts = $contact_list.find("li");
+      // link interface
+      // e.preventDefault();
+      // var $this = $(e.target);
+      // var tag_name = $this.text();
+      // var $contacts = $contact_list.find("li");
      
-      this.collections.forEach(function(contact) {
-        var condition = tag_name === contact.tag;
-        $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
-      });
+      // this.collections.forEach(function(contact) {
+      //   var condition = tag_name === contact.tag;
+      //   $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
+      // });
       
-      if (tag_name === "All") {
-        $contact_list.empty();
-        this.renderContacts();
-      }
+      // if (tag_name === "All") {
+      //   $contact_list.empty();
+      //   this.renderContacts();
+      // }
+      
+      // checkbox interface: show all tags if no box checked; show the one when is checked
+      var self = this;
+      var $contacts = $contact_list.find("li");
+
+      $tags.each(function(i) {
+        var $checkbox = $tags.eq(i);
+        var tag = $checkbox.val();
+        var checked = $checkbox.is(":checked");
+        var tag_contact;
+                
+        tag_contact = self.collections.filter(function(person) {
+          return person.tag === tag;
+        });
+        
+        tag_contact.forEach(function(contact) {    
+          $contacts.filter("[data-id=" + contact.id + "]").toggle(checked);
+        });    
+        
+        
+        if ($("input:checked").length === 0) {
+          $contact_list.empty();
+          self.renderContacts();
+        }
+      });
     },
     checkEmptyContacts: function() {
       var empty_status = $contact_list.find('li').length === 0;
@@ -219,7 +246,12 @@ $(function() {
       $search.on("keyup", this.searchContacts.bind(this));
       $contact_list.on("click", ".labels a", this.toggleTags.bind(this));
       
-      $tags.on("click", "a", this.toggleTags.bind(this));
+      // link interface
+      // $tags.on("click", "a", this.toggleTags.bind(this));
+      
+      // checkbox interface
+      $tags.on("click", this.toggleTags.bind(this));
+
     },
     init: function() {
       this.collections = this.getContactList();

@@ -98,7 +98,10 @@ h4 {
   text-decoration: underline;
 }
 
-input,
+input[type="search"],
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
 select {
   padding: 5px;
   font-size: 14px;
@@ -118,7 +121,8 @@ form h2 {
   border-bottom: 1px solid #eeeeee;
 }
 
-form,
+#create-form,
+#edit-form,
 #no-search {
   display: none;
   margin: 0 auto;
@@ -199,6 +203,11 @@ form input[type="submit"] + input[type="button"] {
 .labels a {
   font-size: 14px;
   color: #6f5499;
+}
+
+.labels input[type="checkbox"] {
+  margin-right: 3px;
+  vertical-align: top;
 }
 
 footer {
