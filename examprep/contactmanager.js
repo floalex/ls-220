@@ -173,22 +173,24 @@ $(function() {
     },
     toggleTags: function(e) {
       // link interface
-      // e.preventDefault();
-      // var $this = $(e.target);
-      // var tag_name = $this.text();
-      // var $contacts = $contact_list.find("li");
+      e.preventDefault();
+      var $this = $(e.target);
+      var tag_name = $this.text();
+      var $contacts = $contact_list.find("li");
      
-      // this.collections.forEach(function(contact) {
-      //   var condition = tag_name === contact.tag;
-      //   $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
-      // });
+      this.collections.forEach(function(contact) {
+        var condition = tag_name === contact.tag;
+        $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
+      });
       
-      // if (tag_name === "All") {
-      //   $contact_list.empty();
-      //   this.renderContacts();
-      // }
-      
-      // checkbox interface: show all tags if no box checked; show the one when is checked
+      if (tag_name === "All") {
+        $contact_list.empty();
+        this.renderContacts();
+      }      
+    },
+    
+    // checkbox interface: show all tags if no box checked; show the one when is checked
+    checkTags: function() {
       var self = this;
       var $contacts = $contact_list.find("li");
 
@@ -250,7 +252,7 @@ $(function() {
       // $tags.on("click", "a", this.toggleTags.bind(this));
       
       // checkbox interface
-      $tags.on("click", this.toggleTags.bind(this));
+      $tags.on("click", this.checkTags.bind(this));
 
     },
     init: function() {
