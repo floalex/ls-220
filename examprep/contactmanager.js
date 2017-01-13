@@ -193,6 +193,10 @@ $(function() {
     checkTags: function() {
       var self = this;
       var $contacts = $contact_list.find("li");
+      
+      this.collections.forEach(function(contact) {
+        $contacts.filter("[data-id=" + contact.id + "]").toggle(false);
+      });
 
       $tags.each(function(i) {
         var $checkbox = $tags.eq(i);
