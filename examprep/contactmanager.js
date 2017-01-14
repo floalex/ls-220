@@ -22,6 +22,10 @@ $(function() {
     
     return person;
   }
+  
+  function findContactList($parent) {
+    return $parent.find("li");
+  }
       
   var ContactManager = {
     checkID: function() {
@@ -68,6 +72,9 @@ $(function() {
     findID: function($person) {
       // broswer stores the id as string in data-id attr
       return Number($person.attr("data-id"));
+    },
+    findSingleID: function($contacts, idx) {
+      return $contacts.filter("[data-id=" + idx + "]");
     },
     copyFrom: function(person) {
       $edit_form.find("#name").val(person.name);
@@ -156,11 +163,12 @@ $(function() {
       var query = $search.val().toLowerCase();
       // need to set the $contacts inside of this method here otherwise can't access $contacts as we get 
       // the contact list after initiating ContactManager 
-      var $contacts = $contact_list.find("li");
+      var $contacts = findContactList($contact_list);
+      var self = this;
       
       this.collections.forEach(function(person) {
         var isInclude = person.name.toLowerCase().indexOf(query) !== -1;
-        $contacts.filter("[data-id=" + person.id + "]").toggle(isInclude);
+        self.findSingleID($contacts, person.id).toggle(isInclude);
       });
       
       this.showNoSearch(query);
@@ -176,11 +184,12 @@ $(function() {
       e.preventDefault();
       var $this = $(e.target);
       var tag_name = $this.text();
-      var $contacts = $contact_list.find("li");
+      var $contacts = findContactList($contact_list);
+      var self = this;
      
       this.collections.forEach(function(contact) {
         var condition = tag_name === contact.tag;
-        $contacts.filter("[data-id=" + contact.id + "]").toggle(condition);
+        self.findSingleID($contacts, contact.id).toggle(condition);
       });
       
       if (tag_name === "All") {
@@ -191,15 +200,15 @@ $(function() {
     
     // checkbox interface: show all tags if no box checked; show the one when is checked
     checkTags: function() {
+      var $contacts = findContactList($contact_list);
       var self = this;
-      var $contacts = $contact_list.find("li");
       
       this.collections.forEach(function(contact) {
-        $contacts.filter("[data-id=" + contact.id + "]").toggle(false);
+        self.findSingleID($contacts, contact.id).toggle(false);
       });
 
-      $tags.each(function(i) {
-        var $checkbox = $tags.eq(i);
+      $tags.each(function(i, el) {
+        var $checkbox = $(el);
         var tag = $checkbox.val();
         var checked = $checkbox.is(":checked");
         var tag_contact;
@@ -209,7 +218,7 @@ $(function() {
         });
         
         tag_contact.forEach(function(contact) {    
-          $contacts.filter("[data-id=" + contact.id + "]").toggle(checked);
+          self.findSingleID($contacts, contact.id).toggle(checked);
         });    
         
         
@@ -220,7 +229,7 @@ $(function() {
       });
     },
     checkEmptyContacts: function() {
-      var empty_status = $contact_list.find('li').length === 0;
+      var empty_status = findContactList($contact_list).length === 0;
       $empty.toggle(empty_status);
       // if ($contact_list.find('li').length === 0) {
       //   $empty.show();
