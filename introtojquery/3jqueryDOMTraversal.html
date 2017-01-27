@@ -24,13 +24,14 @@
       
       var $css = $('#css').closest('li');
       // Find all list items after the CSS list item and hide them
+      // The nextAll() method will return all siblings after
       $css.nextAll().hide();
       
       // Find all list items before the CSS list item and hide them
       $css.prevAll().hide();
       
       // Find all sibling lis and show them
-      $css.siblings().show();
+      // $css.siblings().show();
     });
     </script>
   </head>

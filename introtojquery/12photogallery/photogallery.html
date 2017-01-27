@@ -14,8 +14,11 @@
       // one navigation event that contains 4 "a"
       $nav.on("click", "a", function(e) {
         e.preventDefault();
+        // console.log($(e.currentTarget));   // [a, context: a]
+        // console.log($(e.target));          // [img, context: img]
+        
         // get the list item from the current event object
-        var $li = $(e.currentTarget).closest("li"),
+        var $li = $(e.currentTarget).closest("li"),   // same effect as using e.target
             idx = $li.index();
       
       // without animation
@@ -25,6 +28,8 @@
       $slideshow.find("figure").filter(":visible").stop().fadeOut(300);   // stop prevents double clicking 
       // locate the target item
       $slideshow.find("figure").eq(idx).delay(300).fadeIn(300);
+      // As we click on other thumbnails, we will remove that class from the current 
+      // thumbnail and place it on the clicked one
       $nav.find(".active").removeClass();
       $li.addClass("active");
       });

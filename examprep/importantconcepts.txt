@@ -9,6 +9,7 @@
 --Use Web APIs to work with the DOM
 
 --Understanding event driven programming for front end development
+  - An event listener is a function that is told to execute when a particular event occurs.
 
 --jQuery and the DOM (selectors, event handling, DOM manipulation and animation)
   - The find method searches for matching elements beneath the current matched element. 
@@ -21,5 +22,16 @@
 --Forms, serialization and deserialization
 
 --Constructor Functions and Object Prototypes
+  - constructor function is intended to be called with the "new" keyword
+    1. A new object is created
+    2. "this" in the function is pointed to the new object
+    3. the code in the function is executed
+    4. "this" is returned if there's not an explicit return
+    
+  - Object.create method to create an object, it can set the __proto__ property of the 
+    created object to an object passed in
+    - We can use Object.create to create objects that form a prototype chain
+    - JavaScript searches not only in the object itself, but all the objects on its 
+      prototype chain, until the end is reached
 
 --Pseudo-classical pattern and the OLOO pattern

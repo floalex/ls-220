@@ -6,17 +6,39 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
     $(function() {
-      $("#team li > a").on("click", function(e) {
-        e.preventDefault();        
-        var $e = $(this);
+      // $("#team li > a").on("click", function(e) {
+      //   e.preventDefault();        
+      //   var $e = $(this);
         
+      //   $e.siblings(".modal").css({
+      //     top: $(window).scrollTop() + 30
+      //   });
+        
+      //   $e.nextAll("div").fadeIn(400);
+      // });
+      
+      // $(".modal_layer, a.close").on("click", function(e) {
+      //   e.preventDefault();
+        
+      //   $(".modal_layer, .modal").filter(":visible").fadeOut(400);
+      // });
+      
+      $("#team li").on("click", function(e) {
+        e.preventDefault();        
+        var $e = $(e.target);
+        
+        // have to calculate the modal's top position to be slightly greater than 
+        // the window's top offset to make sure that it is within view. Otherwise, 
+        // it will always be at the top of the document
         $e.siblings(".modal").css({
           top: $(window).scrollTop() + 30
         });
         
+        // display the modal and overlay with the fadeIn method
         $e.nextAll("div").fadeIn(400);
       });
       
+      // have the modal and overlay fade in and out using either jQuery or using CSS animations
       $(".modal_layer, a.close").on("click", function(e) {
         e.preventDefault();
         

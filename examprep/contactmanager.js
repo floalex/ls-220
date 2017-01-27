@@ -46,7 +46,7 @@ $(function() {
       var person = getFormObject($create_form);
       this.last_id++;
       person.id = this.last_id;
-          
+      // be sure to return the person so you can store 
       return person;
     },
     remove: function(idx) {
@@ -99,7 +99,8 @@ $(function() {
       var person = this.add();
       this.collections.push(person);
       
-      // wihout emptying the previous contacts contents, there will be duplicated contacts appeared.
+      // wihout emptying the previous contacts contents, there will be duplicated 
+      // contacts appeared on the page before refreshing.
       $contact_list.empty();
       this.renderContacts();
       
@@ -155,7 +156,13 @@ $(function() {
     renderContacts: function() {
       if (this.collections.length === 0) { return; }
       
-      var $people = $(templates.contacts({ contacts: this.collections }));
+      // passed in context in handlebars templates must be in object that has a 
+      // property on it named contacts, which matched the html script
+      var $people = templates.contacts({ contacts: this.collections });
+      
+      // notice that 'this' points to the app's object because it is in the Handlebars 
+      // template function executed by passing a JSON object as an argument, similar to
+      // using jQuery event methods to set the 'this' in arguments.
       
       $contact_list.append($people);
     },
@@ -203,12 +210,15 @@ $(function() {
       var $contacts = findContactList($contact_list);
       var self = this;
       
+      // hide the contacts which don't have tags first;
       this.collections.forEach(function(contact) {
-        self.findSingleID($contacts, contact.id).toggle(false);
+        if (!contact.tag) {
+          self.findSingleID($contacts, contact.id).toggle(false);
+        }
       });
 
       $tags.each(function(i, el) {
-        var $checkbox = $(el);
+        var $checkbox = $(el);   // or $(this)
         var tag = $checkbox.val();
         var checked = $checkbox.is(":checked");
         var tag_contact;
@@ -242,11 +252,12 @@ $(function() {
       localStorage.setItem('collections', JSON.stringify(this.collections));
     },
     getContactList: function() {
-      if (localStorage.collections) {
-        return JSON.parse(localStorage.getItem('collections'));
-      } else {
-        return [];
-      }
+      return JSON.parse(localStorage.getItem('collections')) || [];
+      // if (localStorage.collections) {
+      //   return JSON.parse(localStorage.getItem('collections'));
+      // } else {
+      //   return [];
+      // }
     },
     bindEvents: function() {
       $toggle_create.on("click", this.toggleCreate.bind(this));

@@ -6,6 +6,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
     $(function() {
+      // var $a = $('a[data-block=gold]');
+
+      // console.log($a.attr('data-block')); // gold
+      // console.log($a.data('block')); // gold
+      
+      // $a.data('block', 'silver');
+      
+      // console.log($a.attr('data-block')); // gold
+      // console.log($a.data('block')); // silver
+      
+      // making the tabbed navigation outlined previously
       // Add a click event to the anchors that will locate the appropriate article
       $('a').on('click', function(e) {
         e.preventDefault();
@@ -13,6 +24,9 @@
         // hide all others and make the located one visible
         $('article').hide().filter('[data-block=' + $(this).attr('data-block') + ']').show();
       });
+      
+      // work with data attributes using JavaScript rather than jQuery      
+      // var gold = document.getElementById('gold');
     });
     </script>
     <style>
@@ -27,7 +41,7 @@
       <li><a href="#" data-block="silver">Silver Sponsors</a></li>
       <li><a href="#" data-block="bronze">Bronze Sponsors</a></li>
     </ul>
-    
+        
     <article data-block="gold">
       <h1>Gold Sponsors</h1>
     </article>
@@ -39,5 +53,9 @@
     <article data-block="bronze">
       <h1>Bronze Sponsors</h1>
     </article>
+    
+    <div id="gold" data-block="gold">
+      <h1>Gold Sponsors</h1>
+    </div>
   </body>
 </html>

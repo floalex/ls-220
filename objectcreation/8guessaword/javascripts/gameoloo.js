@@ -13,9 +13,16 @@ var $apples = $("#apples"),
 var randomWord = (function() {
   var words = ['abacus', 'quotient', 'octothorpe', 'proselytize', 'stipend'];
   
+  // function without(idx) {
+  //   words =  words.filter(function(word) {
+  //     return idx !== words.indexOf(word);
+  //   });
+  // }
+  
   return function() {
     var word = words[Math.floor(Math.random() * words.length)];
     
+    // without(words.indexOf(word));
     words.splice(words.indexOf(word), 1);
     
     return word;
