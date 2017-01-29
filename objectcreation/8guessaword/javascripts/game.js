@@ -153,7 +153,7 @@ Game.prototype = {
     // var duplicate = this.letters_guessed.indexOf(letter) !== -1;
     
     if (!duplicate) { this.letters_guessed.push(letter); }
-    
+    // need to retun duplicate so the if condition can catch the result then process
     return duplicate;
   },
   unbind: function() {
