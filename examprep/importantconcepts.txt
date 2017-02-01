@@ -33,5 +33,16 @@
     - We can use Object.create to create objects that form a prototype chain
     - JavaScript searches not only in the object itself, but all the objects on its 
       prototype chain, until the end is reached
-
+      
+  - Objects created from a Function share the same prototype object.
+  
+  - In JavaScript every function is a Function object created from the Function 
+    Constructor and as such also has a prototype (Function.prototype). 
+  
 --Pseudo-classical pattern and the OLOO pattern
+  - Pseudo-classical: A combination of the constructor and the prototype pattern.
+    - Use the constructor to set object states
+    - Put shared methods on the prototype
+    
+  - "Object Linking to Other Objects": Define the shared behaviors on an prototype object.
+    - Use Object.create() to create objects that inherit directly from that object
