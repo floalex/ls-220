@@ -50,7 +50,6 @@ $(function() {
         $(".pagination").hide();
       } else {
         $(".pagination").show();
-        // $(".page_number").empty();
         $(".page_number").remove();
         $(".pagination li:first-child").after(templates.pages({ pages: this.pages }));
       }
@@ -339,7 +338,6 @@ $(function() {
       this.hideForms();
       if ($(e.target).is("#robotstab")) {
         this.defaultSet();
-        // console.log(RobotList.prototype.current_section);
       } else {
         this.updateFilters();
       }
@@ -407,8 +405,6 @@ $(function() {
         RobotList.sortByCountry(country, new_sort);
       }
       this.paginate = Object.create(Pagination).init(RobotList.current_section.page);
-      // console.log(this.paginate);
-      // console.log(RobotList);
       this.paginate.renderPage();
       this.renderRobots();
     },
