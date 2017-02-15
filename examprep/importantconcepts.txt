@@ -1,32 +1,55 @@
---Functions and Objects
-
---What "this" refers to
-
+--this
+  -object that owns the method/property being called
+  
 --Bind, Apply and Call
-  - bind returns a new function with the original function's this keyword permanently bound to a context,
-    its 'this' will never change when executed
+  - bind returns a new function with the original function's this keyword permanently 
+    bound to a context, its 'this' will never change when executed
 
 --Use Web APIs to work with the DOM
 
 --Understanding event driven programming for front end development
+  - events trigger code, code respondes to users
   - An event listener is a function that is told to execute when a particular event occurs.
 
 --jQuery and the DOM (selectors, event handling, DOM manipulation and animation)
-  - The find method searches for matching elements beneath the current matched element. 
-    (find all the descendants from the element)
-  - The filter method searches for matching elements within the current set of matched elements. 
-    (use selectors like ":even" on the li element)
+  - selectors: class, id, tag
+  - handling event: `.on(eventType, selector, data, handlerfunction)` to respond 
+    to any event on the selected elements
+  - DOM manipulation: All of these methods are referred to as "setters," as they 
+    change the values of properties.
+    - change one of the attributes of an element such as addClass
+    - set an element's style properties: change CSS categories
+    - modify entire elements (or groups of elements) themselves—inserting, copying, removing
+  - DOM traversing
+    - The find method searches for matching elements beneath the current matched element. 
+      (find all the descendants from the element)
+    - The filter method searches for matching elements within the current set of matched elements. 
+      (use selectors like ":even" on the li element)
+  - animation: methods like .fadeIn() and .slideToggle() in jQuery library
 
 --HTML templating with handlebars
-
+  - create dynamically HTML without writing HTML inside of JS
+  
 --Forms, serialization and deserialization
+  - parse: deserializing object, script must convert the string into a JS object when 
+    reaching the browser
+  - stringify: serialize an object, converts objects into a string using JSON, mostly 
+    used when user has updated the data held in the JS object(through forms)
+    - jQuery's .serialize() method:
+      1. Selects all of the information from the form
+      2. Puts it into string
+      3. Encode the characters
 
 --Constructor Functions and Object Prototypes
+  
   - constructor function is intended to be called with the "new" keyword
     1. A new object is created
     2. "this" in the function is pointed to the new object
     3. the code in the function is executed
     4. "this" is returned if there's not an explicit return
+    
+  - Prototypal Inheritance is that an object can point to another object and inherit 
+    all its properties, allow multiple instances of an object to share common properties
     
   - Object.create method to create an object, it can set the __proto__ property of the 
     created object to an object passed in

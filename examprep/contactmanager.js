@@ -96,6 +96,7 @@ $(function() {
     },
     newContact: function(e) {
       e.preventDefault();
+      console.log(e);
       var person = this.add();
       this.collections.push(person);
       
@@ -170,7 +171,8 @@ $(function() {
       var query = $search.val().toLowerCase();
       // need to set the $contacts inside of this method here otherwise can't access $contacts as we get 
       // the contact list after initiating ContactManager 
-      var $contacts = findContactList($contact_list);
+      // var $contacts = findContactList($contact_list);
+      var $contacts = $("#contact-list li")
       var self = this;
       
       this.collections.forEach(function(person) {

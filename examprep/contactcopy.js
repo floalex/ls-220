@@ -1,144 +1,212 @@
 $(function() {
-  var templates = {},
-      $toggle_create = $(".toggle-create"),
-      $toggle_edit = $(".toggle-edit"),
-      $create_form = $("#create-form"),
-      $edit_form = $("#edit-form"),
-      $content = $("#content"),
-      $empty = $("#empty-contact"),
-      $contacts = $("#contact-list");
-  
-  function createPersonObject(form) {
-    var person = {};
-    
-    form.serializeArray().forEach(function(object) {
-      person[object.name] = object.value;
-    });
-    
-    return person;
-  }
+  var templates = {};
+  var catalog = [{
+        "name": "Alayna",
+        "id": 1,
+        "serial": "f9647218-d439-4c96-b597-a1f99abfb1cd",
+        "manufacturer": "China",
+        "img": "/ls-220/reactultimate/images/1.png"
+      }, {
+        "name": "Alicia",
+        "id": 2,
+        "serial": "ec738f26-bdbb-4321-8a60-0403592981fd",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/2.png"
+      }, {
+        "name": "Ara",
+        "id": 3,
+        "serial": "385beb93-aa38-434a-ae7e-1595c1b28ee1",
+        "manufacturer": "Russia",
+        "img": "/ls-220/reactultimate/images/3.png"
+      }, {
+        "name": "Billie",
+        "id": 4,
+        "serial": "Nintendo WiiU",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/4.png"
+      }, {
+        "name": "Carey",
+        "id": 5,
+        "serial": "54ca553d-cd3c-4ad4-9047-2807640a0de0",
+        "manufacturer": "Russia",
+        "img": "/ls-220/reactultimate/images/5.png"
+      }, {
+        "name": "Demario",
+        "id": 6,
+        "serial": "51c9b97b-8a58-48c4-b67c-121a8f6c1c21",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/6.png"
+      }, {
+        "name": "Cesar",
+        "id": 7,
+        "serial": "2fd85d23-0761-478d-ba0d-e17f169b026d",
+        "manufacturer": "China",
+        "img": "/ls-220/reactultimate/images/7.png"
+      }, {
+        "name": "Erna",
+        "id": 8,
+        "serial": "5f5d4fff-cee7-41e6-8a5b-783629b51c38",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/8.png"
+      }, {
+        "name": "Gia",
+        "id": 9,
+        "serial": "b6eab3da-5ed6-456f-8b89-c175862e23d8",
+        "manufacturer": "China",
+        "img": "/ls-220/reactultimate/images/9.png"
+      }, {
+        "name": "Francesco",
+        "id": 10,
+        "serial": "594ecb71-f4e3-4bbf-8f84-6b2112690960",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/10.png"
+      }, {
+        "name": "Hannah",
+        "id": 11,
+        "serial": "c33b6ce0-022c-4d29-af56-8f8f8970006a",
+        "manufacturer": "Russia",
+        "img": "/ls-220/reactultimate/images/11.png"
+      }, {
+        "name": "Gia",
+        "id": 12,
+        "serial": "b6eab3da-5ed6-456f-8b89-c175862e23d8",
+        "manufacturer": "China",
+        "img": "/ls-220/reactultimate/images/12.png"
+      }, {
+        "name": "Isaiah",
+        "id": 13,
+        "serial": "96666987-1888-42f8-8496-a23ac622a28e",
+        "manufacturer": "USA",
+        "img": "/ls-220/reactultimate/images/13.png"
+      }, { 
+        "name": "Jared",
+        "id": 14,
+        "serial": "ae3a2c6c-75f0-4659-81d4-65488ba17e26",
+        "manufacturer": "China",
+        "img": "/ls-220/reactultimate/images/14.png"
+      }, {
+        "name": "Johnpaul",
+        "id": 15,
+        "serial": "0c08ef26-c6d2-481d-8d04-81f4b94d5533",
+        "manufacturer": "Russia",
+        "img": "/ls-220/reactultimate/images/15.png"
+      }];
       
-  var ContactManager = {
-    last_id: 0,
+  function RobotList() {
+  }
+  
+  RobotList.prototype = {
+    init: function() {
+      this.robots = this.getList();
+      this.last_id = this.checkID();
+      this.saveData();
+    },
+    getList: function() {
+      return JSON.parse(localStorage.getItem('robots')) || catalog;
+    },
+    saveData: function() {
+      localStorage.setItem("robots",JSON.stringify(this.robots));
+    },
+    checkID: function() {
+      return this.robots.length > catalog.length ? this.robots[this.robots.length - 1].id : catalog.length;
+    },
+    get: function(id) {
+      var found_item;      
+      this.robots.forEach(function(item) {
+        if (item.id === id) {
+          found_item = item;
+          return false; 
+        }
+      });      
+      return found_item;
+    },
+    generateUUID: function() {
+      var s4 = function() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)  //for hexadecimal numbers(base 16), a through f are used.
+          .substring(1);
+      };
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    },
+    generateImg: function() {
+      var imgs = catalog.map(function(object) {
+      	return object.img;
+      });
+      
+      var random_img = imgs[Math.floor(Math.random() * imgs.length)];
+      return random_img;
+    },
+  };
+ 
+  var RobotProgram = {
     cacheTemplate: function() {
       $("script[type='text/x-handlebars']").each(function() {
         var $tmpl = $(this);
         templates[$tmpl.attr("id")] = Handlebars.compile($tmpl.html());
       });
-      
-      $("[data-type=partial]").each(function() {
-        var $partial = $(this);
-        Handlebars.registerPartial($partial.attr("id"), $partial.html());
-      });
     },
-    add: function() {
-      var person = createPersonObject($create_form);
-      this.last_id++;
-      person.id = this.last_id;
-          
-      return person;
+    renderRobots: function() {
+      var $robots = templates.robots({ robots: RobotList.prototype.robots });
+      $("#toppagination").after($robots);
     },
-    remove: function(idx) {
-      this.collections = this.collections.filter(function(element) {
-        return idx !== element.id;
-      });
-      console.log(this.collections);
+    renderItemFromPanel: function(e) {
+      var $parent = $(e.target).closest(".panel");
+      var data_id = Number($parent.attr("data-id"));
+      var item = RobotList.prototype.get(data_id);
+      this.renderProfile(item);
     },
-    findParent: function(e) {
-      return $(e.target).closest("li");
-    },
-    findID: function($person) {
-      // broswer stores the id as string in data-id attr
-      return Number($person.attr("data-id"));
+    renderProfile: function(item) {
+      $("#individual").remove();
+      $("#profile").append(templates.robot(item));
     },
     toggleCreate: function(e) {
-      e.preventDefault();
-      $create_form.slideToggle("slow");
-      // use slideToggle here smooth the toggle animation on the page as divs and form have different width
-      $content.slideToggle(); 
+      $("#add-form").show();
+      $("#list, #profile, #edit").hide(); 
+      this.create();
     },
-    toggleEdit: function(e) {
-      e.preventDefault();
-      $edit_form.slideToggle("slow");
-      $content.slideToggle();
-    },
-    newContact: function(e) {
-      e.preventDefault();
-      var person = this.add();
-      $contacts.append($(templates.comment(person)));
-      this.collections.push(person);
-      
-      this.checkEmptyContacts();
-      
-      this.toggleCreate(e);
-    },
-    editPerson: function(e) {
-      this.toggleEdit(e);
-    },
-    deletePerson: function(e) {
-      e.preventDefault();
-      var result = confirm("Are you sure you want to delete this contact?");
-      if (result) {
-        var $person = this.findParent(e).remove();
+    create: function() {
+      $("#add-form").on("click", ".btn-primary", function(event) {
+        event.preventDefault();
+        $("#new-form").submit();
+      });
+      $("#new-form").on("submit", function(f) {
+        f.preventDefault();
+        var data = $(f.target);
+        console.log(data);
+        console.log(data.serializeArray());
+        // RobotList.prototype.createNew(data.serializeArray());
         
-        this.remove(this.findID($person));
-      } 
-      
-      this.checkEmptyContacts();
+      });
     },
-    renderContacts: function() {
-      if (this.collections.length === 0) { return; }
-      
-      var $people = $(templates.contacts({ contacts: this.collections }));
-      
-      $contacts.append($people);
-    },
-    checkEmptyContacts: function() {
-      if ($contacts.find('li').length === 0) {
-        $empty.show();
-      } else {
-        $empty.hide();
+    viewProfile: function(e) {
+      $("#profile").show();     
+      $("#list, #add-form, #edit").hide();
+      if ($(e.currentTarget).parent().is(".panel")) {
+        this.renderItemFromPanel(e);
       }
     },
-    saveContactList: function() {
-      // the class name must match the variable in the app to avoid assigning undefined when first check the localStorage status
-      localStorage.setItem('collections', JSON.stringify(this.collections));
+    toggleEdit: function() {
+      $("#edit").show();
+      $("#list, #add-form, #profile").hide();
     },
-    getContactList: function() {
-      if (localStorage.collections) {
-        return JSON.parse(localStorage.getItem('collections'));
-      } else {
-        return [];
-      }
+    showList: function() {
+      $("#list").show();
+      $("#add-form, #profile, #edit").hide();
     },
     bindEvents: function() {
-      $toggle_create.on("click", this.toggleCreate.bind(this));
-      $create_form.on("submit", this.newContact.bind(this));
-      $contacts.on("click", "a.edit", this.editPerson.bind(this));
-      $contacts.on("click", "a.delete", this.deletePerson.bind(this));
-      $toggle_edit.on("click", this.toggleEdit.bind(this));
-      $(window).on("unload", this.saveContactList.bind(this));
+      $(".btn-gray-light, #robotstab").on("click", this.showList);
+      $(".btn-green").on("click", this.toggleCreate.bind(this));
+      $(".container").on("click", ".panel-body, .btn-blue", this.viewProfile.bind(this));
+      $(".container").on("click", ".btn-orange", this.toggleEdit);
     },
     init: function() {
-      this.collections = this.getContactList();
       this.bindEvents();
       this.cacheTemplate();
-      this.renderContacts();
-      this.checkEmptyContacts();
-      return this;
-    },
+      this.renderRobots();
+    }
   };
   
-  Object.create(ContactManager).init();  
+  RobotList.prototype.init();
+  RobotProgram.init();
 });
-
-// bind the event to toggle the create contact form
-// if the contact list exists, fetch the data; if not, pull the empty message box
-
-// in the form, validate each field not to be empty before saving the data
-// in the form user can go back to home page by clicking the 'cancel' button 
-
-// implement a "tagging" feature, which allows you to create tags, such as "marketing", "sales", 
-// "engineering", and when you add/edit a contact, you can select a tag to attach to the contact
-
-// Finally, you can click on a tag and show all the contacts with that tag. (reference to game filter project)

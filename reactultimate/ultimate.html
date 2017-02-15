@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <title>Ultimate Robots</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet"/> 
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300|Roboto+Slab:400' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+  <script src="robotdata.js"></script>
+  <script src="ultimate.js"></script>
+</head>
+<body>  
+  <main id="app">
+    <div>
+      <header class="navbar navbar-default headroom navbar-down">
+        <div class="container clearfix">
+          <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-target=".navbar-page-header">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="fa fa-bars fa-lg"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+            <span class="light">React</span><!--
+            --><span>Ultimate</span>
+            </a>
+          </div>
+          <nav class="navbar-collapse navbar-page-header navbar-right effect brackets collapse">
+            <ul class="nav navbar-nav">
+              <li><a class="" href="#">About</a></li>
+              <li><a class="active" href="#" id="robotstab">Robots</a></li>
+              <li><a class="" href="#">Monsters</a></li>
+              <li><a class="" href="#">Tech</a></li>
+              <li><a class="" href="#">Credits</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      
+      <main id="main">
+      
+        <div id="add-form">
+          <div class="actions">
+            <div class="container">
+              <div class="btn-group btn-group-sm pull-left">
+                <a class="btn btn-gray-light" title="Back to list" href="#">
+                  <span class="fa fa-arrow-left"></span>
+                  <span class="hidden-xs margin-left-sm">Back to list</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <section class="container margin-top-lg">
+            <div class="row">
+              <div class="col-xs-12 col-sm-9">
+                <h1 class="nomargin-top">Add Robot</h1>
+                <form action="" method="post" id="new-form">
+                  <fieldset>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" value="" name="name" id="name" class="form-control" />
+                      <div class="help"></div>
+                    </div>
+                    <div class="form-group">
+                      <label for="manufacturer">Manufacturer</label>
+                      <input type="text" value="" name="manufacturer" id="manufacturer" class="form-control" />
+                      <div class="help"></div>
+                    </div>
+                  </fieldset>
+                  <div class="btn-group">
+                    <button class="btn btn-default" type="button">Reset</button>
+                    <button class="btn btn-primary" type="button">Submit</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </section>
+          </div>
+          
+        <div id="list">
+          <div class="actions">
+            <div class="container">
+              <div class="pull-left">
+                <div class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span>Per page </span>
+                    <span id="pagespan">12</span>
+                    <span> </span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" id="page">
+                  <li role="presentation" class="">
+                    <a href="#">5</a>
+                  </li>
+                  <li role="presentation" class="">
+                    <a href="#">10</a>
+                  </li>
+                  <li role="presentation" class="active">
+                    <a href="#">12</a>
+                  </li>
+                </ul>
+                </div>
+              </div>
+
+              <div class="pull-left">
+                <div class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span>Sort by </span>
+                    <span id="namespan">+name</span>
+                    <span> </span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" id="sortname">
+                    <li role="presentation" class="active">
+                      <a href="#">+name</a>
+                    </li>
+                    <li role="presentation" class="">
+                      <a href="#">-name</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="pull-left">
+                <div class="dropdown">
+                  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span>Filter by </span>
+                    <span>manufacturer</span>
+                    <span> = </span>
+                    <span id="countryspan">Any</span>
+                    <span> </span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" id="country">
+                    <li role="presentation" class="active">
+                      <a href="#" title="">Any</a>
+                    </li>
+                    <li role="presentation" class="">
+                      <a href="#" title="">China</a>
+                    </li>
+                    <li role="presentation" class="">
+                      <a href="#" title="">Russia</a>
+                    </li>
+                    <li role="presentation" class="">
+                      <a href="#" title="">USA</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="pull-right">
+                <a class="btn btn-sm btn-green" title="Add" href="#">
+                  <span class="fa fa-plus"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+    
+          <section class="container">
+            <h1>Robots</h1>
+            <nav id="toppagination">
+              <ul class="pagination">
+                <li class="disabled">
+                  <a class="prevlink" href="#" title="0">
+                    <span>«</span>
+                  </a>
+                </li>
+                
+                <script id="pages" type="text/x-handlebars">
+                  {{#each pages}}
+                  <li class="page_number">
+                    <a class="page_link" href="#" title="{{page}}">{{page}}</a>
+                  </li>
+                  {{/each}}
+                </script>
+                
+                <li>
+                  <a class="nextlink" href="#" title="1" ><span>»</span></a>
+                </li>
+              </ul>
+            </nav>
+            
+            <script id="robots" type="text/x-handlebars">
+              <div class="row" id="robotrow">
+              {{#each sorted}}
+                <div class="col-sm-6 col-md-3">
+                  <div class="panel panel-default" data-id="{{id}}">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a href="#">{{name}}</a>
+                      </h4>
+                    </div>
+                    <div class="panel-body text-center nopadding">
+                      <a href="#">
+                        <img src="{{img}}" width="200px" height="200px">
+                      </a>
+                    </div>
+                    <div class="panel-footer">
+                      <div class="clearfix">
+                        <div class="btn-group btn-group-sm pull-right">
+                          <a class="btn btn-blue" title="Detail" href="#">
+                            <span class="fa fa-eye"></span>
+                          </a>
+                          <a class="btn btn-orange" title="Edit" href="#">
+                            <span class="fa fa-edit"></span>
+                          </a>
+                          <a class="btn btn-red" title="Remove">
+                            <span class="fa fa-times"></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+              </div>
+            </script>
+          
+          <ul class="pagination">
+            <li class="disabled">
+              <a class="prevlink" href="#" title="0">
+                <span>«</span>
+              </a>
+            </li>
+            <!--pagination goes here too-->
+            <li>
+              <a class="nextlink" href="#" title="1" ><span>»</span></a>
+            </li>
+          </ul>
+          </section>
+    
+          <footer class="footer">
+            <p class="text-center">
+              <a href="https://github.com/Paqmind/react-ultimate" target="_blank">
+                <span class="fa fa-github fa-lg margin-right-xs"></span>
+                <span> github.com/Paqmind/react-ultimate</span>
+              </a>
+            </p>
+            <p class="text-center">
+              <span class="fa fa-copyright margin-right-xs"></span>
+              <span> </span>
+              <a href="http://paqmind.com" target="_blank">paqmind.com</a>
+            </p>
+          </footer>
+        </div>
+        
+        <div id="profile">
+          <div class="actions">
+            <div class="container">
+              <div class="btn-group btn-group-sm pull-left">
+                <a class="btn btn-gray-light" title="Back to list" href="#">
+                  <span class="fa fa-arrow-left"></span>
+                  <span class="hidden-xs margin-left-sm">Back to list</span>
+                </a>
+              </div>
+              <div class="btn-group btn-group-sm pull-right">
+                <a class="btn btn-sm btn-green" title="Add" href="#">
+                  <span class="fa fa-plus"></span>
+                </a>
+                <a class="btn btn-orange" title="Edit" href="#">
+                  <span class="fa fa-edit">
+                  </span>
+                </a>
+                <a class="btn btn-red" title="Remove">
+                  <span class="fa fa-times">
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <script id="robot" type="text/x-handlebars">
+            <div id="individual">
+              <section class="container margin-top-lg">
+                <div class="row" data-id="{{id}}">
+                  <div class="col-xs-12 col-sm-3">
+                    <div class="thumbnail">
+                      <img src="{{img}}" width="200px" height="200px">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h1 class="nomargin-top">{{name}}</h1>
+                    <dl>
+                      <dt>Serial Number</dt>
+                      <dd>{{serial}}</dd>
+                      <dt>Manufacturer</dt>
+                      <dd>{{manufacturer}}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </script>
+        </div>
+        
+        <div id="edit">
+          <div class="actions">
+            <div class="container">
+              <div class="btn-group btn-group-sm pull-left">
+                <a class="btn btn-gray-light" title="Back to list" href="#">
+                  <span class="fa fa-arrow-left"></span>
+                  <span class="hidden-xs margin-left-sm">Back to list</span>
+                </a>
+              </div>
+            <div class="btn-group btn-group-sm pull-right">
+              <a class="btn btn-sm btn-green" title="Add" href="#">
+                <span class="fa fa-plus"></span>
+              </a>
+              <a class="btn btn-blue" title="Detail" href="#">
+                <span class="fa fa-eye"></span>
+              </a>
+              <a class="btn btn-red" title="Remove" href="#">
+                <span class="fa fa-times">
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+          <section class="container margin-top-lg">
+            <div class="row">
+              <div class="col-xs-12 col-sm-3">
+                <div class="thumbnail">
+                  <img src="" width="200px" height="200px">
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <h1 class="nomargin-top"></h1>
+                <form action="" method="post" id="edit-form">
+                  <fieldset>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" value="" name="name" id="name" class="form-control" />
+                      <div class="help"></div>
+                    </div>
+                    <div class="form-group">
+                      <label for="manufacturer">Manufacturer</label>
+                      <input type="text" value="" name="manufacturer" id="manufacturer" class="form-control" />
+                      <div class="help"></div>
+                    </div>
+                  </fieldset>
+                  <div class="btn-group">
+                    <button class="btn btn-default" type="button">Reset</button>
+                    <button class="btn btn-primary" type="button">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>      
+  </main>
+  
+</body>
+</html>
+
+<!--original: <!--http://ultimate.paqmind.com/robots/-->
