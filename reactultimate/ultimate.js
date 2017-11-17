@@ -143,10 +143,17 @@ $(function() {
       })[0];
     },
     updateItem: function(item, data){
-      item.name = Robot.prototype.getObjectByAttr(data, "name", "name").value;
-      item.manufacturer = Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value;
+      // without modifying the original item
+      var update_item = {name: Robot.prototype.getObjectByAttr(data, "name", "name").value, 
+                        id: item.id,
+                        serial: item.serial,
+                        manufacturer: Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value,                
+                        img: item.img};
+      Object.assign({}, update_item);
+      // item.name = Robot.prototype.getObjectByAttr(data, "name", "name").value;
+      // item.manufacturer = Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value;
       this.saveData();
-      return item;
+      return update_item;
     },
     byAscendName: function(a, b) {
       var nameA = a.name.toUpperCase(); 
@@ -319,6 +326,8 @@ $(function() {
         f.preventDefault();
         var data = $(f.target);
         var update_item = RobotList.updateItem(item, data.serializeArray());
+        console.log(item);
+        console.log(update_item);
         console.log("Robot has been updated");
         self.renderProfile(update_item);
         self.popupProfile();

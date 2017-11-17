@@ -177,6 +177,7 @@ $(function() {
       
       this.collections.forEach(function(person) {
         var isInclude = person.name.toLowerCase().indexOf(query) !== -1;
+                     // RegExp(input).test(person.name.toLowerCase())
         self.findSingleID($contacts, person.id).toggle(isInclude);
       });
       
