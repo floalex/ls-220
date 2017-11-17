@@ -144,12 +144,9 @@ $(function() {
     },
     updateItem: function(item, data){
       // without modifying the original item
-      var update_item = {name: Robot.prototype.getObjectByAttr(data, "name", "name").value, 
-                        id: item.id,
-                        serial: item.serial,
-                        manufacturer: Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value,                
-                        img: item.img};
-      Object.assign({}, update_item);
+      var update_item = Object.assign({}, item);
+      update_item.name = Robot.prototype.getObjectByAttr(data, "name", "name").value;
+      update_item.manufacturer = Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value;
       // item.name = Robot.prototype.getObjectByAttr(data, "name", "name").value;
       // item.manufacturer = Robot.prototype.getObjectByAttr(data, "name", "manufacturer").value;
       this.saveData();
